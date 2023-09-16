@@ -13,7 +13,9 @@ import './GameHeader.css';
 
 export default function GameHeader (props) {
   const [showFeedback, setShowFeedback] = useState(false);
-
+  const handleFeedbackToggle = () => {
+    setShowFeedback(prevShowFeedback => !prevShowFeedback);
+  };
   return (
   <div className="ot-game-header">
     <div className="ot-game-header-left">
@@ -39,12 +41,10 @@ export default function GameHeader (props) {
         <></>
         }
         <div className="ot-game-header-feedback">
-          <div className="action" onClick={() => {setShowFeedback(!showFeedback)}}><p>Feedback</p></div>
-          { showFeedback ?
-            <Feedback onCancel={() => {setShowFeedback(false)}}/>
-            :
-            <div></div>
-          }
+          <div className="action" onClick={handleFeedbackToggle}>
+            <p>Feedback</p>
+          </div>
+          { showFeedback ? <Feedback onCancel={handleFeedbackToggle} /> : null }
         </div>
       </div>
     </div>

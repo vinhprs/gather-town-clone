@@ -4,14 +4,17 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import https from 'https';
+import http from 'http';
 import fs from 'fs';
 import { Lib } from 'lance-gg';
 import Game from './common/Game';
 import TownServerEngine from './server/TownServerEngine';
+import setupWS from './video-server';
 
 export default function setupGameServer(server, httpServer) {
   // Game Instances
   let io = socketIO(httpServer);
+  setupWS()
   const gameEngine = new Game({ traceLevel: Lib.Trace.TRACE_NONE });
   const serverEngine = new TownServerEngine(io, gameEngine, { debug: {}, updateRate: 6, timeoutInterval: 0 });
 
@@ -89,7 +92,7 @@ if (require.main === module) {
 
   console.log("Running prod https server");
   const server = express();
-  let httpsServer = https.createServer(credentials, server);
+  let httpsServer = http.createServer(server);
   httpsServer.listen(PORT);
   server.use(cors());
   server.options('*', cors())

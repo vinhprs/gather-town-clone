@@ -11,7 +11,7 @@ import GameScreenVideo from '../GameScreenVideo.jsx';
 
 import './AltGameVideosContainer.css';
 
-let DEV_ENDPOINT = `BLANK`;
+let DEV_ENDPOINT = `ws//:localhost:9009`;
 let PROD_ENDPOINT = `BLANK`;
 
 let MAX_VIDEOS_DEFAULT = 10000;

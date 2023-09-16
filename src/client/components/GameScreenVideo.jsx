@@ -24,7 +24,18 @@ export default function GameScreenVideo (props) {
     } else {
       video.src = window.URL.createObjectURL(props.stream); // For older browsers
     }
-    video.play();
+    var playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        // Automatic playback started!
+        // Show playing UI.
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+      });
+    }
   }, [props.stream]);
 
   useEffect(() => {

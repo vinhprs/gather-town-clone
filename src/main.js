@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import https from 'https';
+import http from 'http';
 import fs from 'fs';
 import { db, auth } from './server/constants';
 
@@ -365,7 +366,7 @@ if (process.env.PROD === "true") {
   };
 
   console.log("Running prod https server");
-  let httpsServer = https.createServer(credentials, server);
+  let httpsServer = http.createServer(credentials, server);
   httpsServer.listen(PORT);
 } else {
   // run http server and game server

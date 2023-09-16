@@ -11,7 +11,7 @@ import GameScreenVideo from './GameScreenVideo.jsx';
 
 import './GameVideosContainer.css';
 
-let DEV_ENDPOINT = `BLANK`;
+let DEV_ENDPOINT = `ws://localhost:9009`;
 let PROD_ENDPOINT = `BLANK`;
 
 let MAX_VIDEOS_DEFAULT = 10000;
@@ -158,7 +158,7 @@ export default function GameVideosContainer(props) {
       })
 
     function initialize(stream) {
-      const ws = new WebSocket(window.location.origin.includes("localhost") ? DEV_ENDPOINT : PROD_ENDPOINT);
+      const ws = new WebSocket((window.location.origin.includes("localhost")) ? DEV_ENDPOINT : PROD_ENDPOINT);
       ws.isConnected = false;
 
       setOwnStreamMap((prevOwnStreamMap) => {
@@ -344,7 +344,7 @@ export default function GameVideosContainer(props) {
     return (
       <>
       <GameVideo
-        key={playerId}
+        key={`video-${playerId}`}
         id={playerId}
         playerInfo={props.playerInfoMap[playerId]}
         stream={streamMap[playerId]}
@@ -360,7 +360,7 @@ export default function GameVideosContainer(props) {
       {
         playerId in screenStreamMap ?
         <GameScreenVideo
-          key={"screen"+playerId}
+          key={`screen-video-${playerId}`}
           id={playerId}
           stream={screenStreamMap[playerId]}
           distance={distance}
