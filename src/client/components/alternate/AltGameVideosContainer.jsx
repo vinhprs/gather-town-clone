@@ -217,9 +217,9 @@ export default function AltGameVideosContainer(props) {
           iceTransportPolicy: 'relay',
           config: {
             iceServers: [
-              { urls: 'BLANK' },
+              { urls: 'stun:stun.l.google.com:19302' },
               {
-                urls: 'BLANK',
+                urls: 'stun:stun.l.google.com:19302',
                 username: 'user',
                 credential: 'credential',
               }

@@ -33,6 +33,15 @@ export default function GameVideo (props) {
       video.src = window.URL.createObjectURL(props.stream); // For older browsers
     }
     video.play();
+    return () => {
+      // Stop video playback and release resources if the component is unmounted
+      video.pause();
+      if ("srcObject" in video) {
+        video.srcObject = null;
+      } else {
+        video.src = "";
+      }
+    };
   }, [props.stream]);
 
   useEffect(() => {
@@ -40,11 +49,20 @@ export default function GameVideo (props) {
     if (props.distance) {
       if (distToOpacity(props.distance) !== undefined) {
         video.parentElement.parentElement.style.opacity = distToOpacity(props.distance);
-      }
+      }s
       if (distToVolume(props.distance) !== undefined) {
         video.volume = distToVolume(props.distance);
       }
     }
+    return () => {
+      // Reset styles and properties if the component is unmounted
+      if (video && video.parentElement && video.parentElement.parentElement) {
+        video.parentElement.parentElement.style.opacity = ''; // Reset opacity
+      }
+      if (video) {
+        video.volume = 1; // Reset volume
+      }
+    };
   }, [props.distance]);
 
   function toggleVideoEnabled() {
