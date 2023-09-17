@@ -4,7 +4,7 @@ import os
 import string
 import math
 
-global objectsize, im, terrain_coors, original_im
+global objectsize, image_fake, terrain_coors, original_im
 
 global leftMouseDown, rightMouseDown
 leftMouseDown = False
@@ -14,7 +14,7 @@ def get_box_coors(input_x, input_y):
     return (input_x // objectsize, input_y // objectsize)
 
 def highlight_square(x, y):
-    global im
+    global image_fake
     xcoor = x * objectsize
     ycoor = y * objectsize
     if (y, x) in terrain_coors:
@@ -23,10 +23,10 @@ def highlight_square(x, y):
     else:
         color = (255, 255, 255)
         terrain_coors.add((y, x))
-    cv2.line(im, (xcoor, ycoor), (xcoor + objectsize - 1, ycoor), color, 3)
-    cv2.line(im, (xcoor, ycoor), (xcoor, ycoor + objectsize - 1), color, 3)
-    cv2.line(im, (xcoor + objectsize - 1, ycoor), (xcoor + objectsize - 1, ycoor + objectsize - 1), color, 3)
-    cv2.line(im, (xcoor, ycoor + objectsize - 1), (xcoor + objectsize - 1, ycoor + objectsize - 1), color, 3)
+    cv2.line(image_fake, (xcoor, ycoor), (xcoor + objectsize - 1, ycoor), color, 3)
+    cv2.line(image_fake, (xcoor, ycoor), (xcoor, ycoor + objectsize - 1), color, 3)
+    cv2.line(image_fake, (xcoor + objectsize - 1, ycoor), (xcoor + objectsize - 1, ycoor + objectsize - 1), color, 3)
+    cv2.line(image_fake, (xcoor, ycoor + objectsize - 1), (xcoor + objectsize - 1, ycoor + objectsize - 1), color, 3)
 
 def mouse_callback(event, x, y, flags, param):
     global leftMouseDown, rightMouseDown
@@ -49,23 +49,23 @@ def mouse_callback(event, x, y, flags, param):
                 highlight_square(grid_x, grid_y)
 
 def draw_gridlines():
-    global im
+    global image_fake
     # rows
-    for x in range(1, im.shape[1] // args.objectsize):
+    for x in range(1, image_fake.shape[1] // args.objectsize):
         xcoor = args.objectsize * x
-        cv2.line(im, (xcoor, 0), (xcoor, im.shape[0] - 1), (0, 0, 0), 3)
+        cv2.line(image_fake, (xcoor, 0), (xcoor, image_fake.shape[0] - 1), (0, 0, 0), 3)
 
-    for y in range(1, im.shape[0] // args.objectsize):
+    for y in range(1, image_fake.shape[0] // args.objectsize):
         ycoor = args.objectsize * y
-        cv2.line(im, (0, ycoor), (im.shape[1] - 1, ycoor), (0, 0, 0), 3)
+        cv2.line(image_fake, (0, ycoor), (image_fake.shape[1] - 1, ycoor), (0, 0, 0), 3)
 
 def resize_im(scale):
-    global im, original_im
+    global image_fake, original_im
     width = int(original_im.shape[1] * scale)
     height = int(original_im.shape[0] * scale)
     dim = (width, height)
-    im = cv2.resize(original_im, dim, interpolation=cv2.INTER_CUBIC)
-    original_im = cv2.resize(original_im, dim, interpolation=cv2.INTER_CUBIC)
+    original_im = cv2.resize(image_fake, dim, interpolation=cv2.INTER_CUBIC)
+    original_im = cv2.resize(image_fake, dim, interpolation=cv2.INTER_CUBIC)
     draw_gridlines()
     terrain_coors = set()
 
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     objectsize = args.objectsize
-    im = cv2.imread(args.imagepath)
+    image_fake = cv2.imread(args.imagepath)
     original_im = cv2.imread(args.imagepath)
     print('original im')
     print(original_im.shape)
@@ -99,18 +99,18 @@ if __name__ == '__main__':
 
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     if args.scale:
-        scaled_width = int(im.shape[1] * args.scale)
-        scaled_height = int(im.shape[0] * args.scale)
+        scaled_width = int(image_fake.shape[1] * args.scale)
+        scaled_height = int(image_fake.shape[0] * args.scale)
         print('scale: {}, (w, h): {}, {}'.format(args.scale, scaled_width, scaled_height))
         cv2.resizeWindow('image', (scaled_width, scaled_height))
     mouseDown = False
     cv2.setMouseCallback('image', mouse_callback)
     while True:
-        cv2.imshow('image', im)
+        cv2.imshow('image', image_fake)
         k = cv2.waitKey(10) & 0xFF
         if k == ord('a'):
             with open(args.terrainfile, 'w') as fout:
-                to_write = [[0 for _ in range(math.ceil(im.shape[1] / objectsize))] for _ in range(math.ceil(im.shape[0] / objectsize))]
+                to_write = [[0 for _ in range(math.ceil(image_fake.shape[1] / objectsize))] for _ in range(math.ceil(image_fake.shape[0] / objectsize))]
                 for (temp_x, temp_y) in terrain_coors:
                     print('{} {} terrain_coors'.format(temp_x, temp_y))
                     to_write[temp_x][temp_y] = 1
