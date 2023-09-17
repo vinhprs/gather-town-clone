@@ -87,7 +87,15 @@ function offScreenLine(x, y) {
 
 
 function draw(x, y, map, players) {
+  // test video code open
+  var playerCamera = document.getElementById("player-video");
+  const constraints = {
+    video: true,
+    audio: false // If you want audio, set this to true
+  };
+  // test video code close
   var canvas = document.getElementById("canvas");
+
   var ctx = canvas.getContext("2d");
   var w = document.getElementById("canvas").offsetWidth;
   var h = document.getElementById("canvas").offsetHeight;
@@ -99,8 +107,8 @@ function draw(x, y, map, players) {
 
   if (map !== lastMap) {
     lastMap = map;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, w, h);
+    // ctx.fillStyle = "#FFFFFF";
+    // ctx.fillRect(0, 0, w, h);
   }
 
   if (!(map in terrainImages)) {
@@ -113,17 +121,17 @@ function draw(x, y, map, players) {
     top_x, top_y, w, h,
     0, 0, w, h);
 
-  ctx.beginPath();
-  ctx.lineWidth = "4";
-  ctx.strokeStyle = "white";
-  ctx.rect(
-    2,
-    2,
-    596,
-    396
-  );
-  ctx.stroke();
-  ctx.closePath();
+  // ctx.beginPath();
+  // ctx.lineWidth = "4";
+  // ctx.strokeStyle = "white";
+  // ctx.rect(
+  //   2,
+  //   2,
+  //   596,
+  //   396
+  // );
+  // ctx.stroke();
+  // ctx.closePath();
 
   updateAnim(map, ctx, top_x, top_y, objectSizes);
 
@@ -179,6 +187,13 @@ function draw(x, y, map, players) {
         mouseCoorX >= drawX
         && mouseCoorX <= drawX + objectSizes
         && mouseCoorY >= drawY && mouseCoorY <= drawY + objectSizes;
+      // test playerCamera
+      playerCamera.style.left = drawX + (objectSizes / 2) + "px";
+      playerCamera.style.top = drawY - 70 + "px";
+      playerCamera.style.border = "solid 2px white";
+      playerCamera.style.transform = "translateX(-50%)";
+      // close test playerCamera
+
       if (
         (showNames || mousedOver)
         && playersNameMap[player.playerId] && mapNameContainer
