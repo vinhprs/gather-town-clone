@@ -1,9 +1,14 @@
-import { colors, PUBLIC_MAP } from './constants';
-import { clamp, max, getSubDomain } from './utils';
-import { updateAnim } from './environmentAnimation';
-import { isBlocked } from '../common/utils';
-import { imageMap, imageDimensionsMap, collisionMap, characterMap } from '../common/maps';
-import { characterIds } from './constants';
+import { colors, PUBLIC_MAP } from "./constants";
+import { clamp, max, getSubDomain } from "./utils";
+import { updateAnim } from "./environmentAnimation";
+import { isBlocked } from "../common/utils";
+import {
+  imageMap,
+  imageDimensionsMap,
+  collisionMap,
+  characterMap,
+} from "../common/maps";
+import { characterIds } from "./constants";
 
 export var objectSizes = 20;
 
@@ -14,7 +19,7 @@ var playerImages = {};
 var publicStartX;
 var publicStartY;
 
-let playerMap = {}
+let playerMap = {};
 let playersNameMap = {};
 
 var mouseCoorX = 0;
@@ -40,57 +45,55 @@ export function drawInit() {
   canvas.onmousemove = (e) => {
     mouseCoorX = e.clientX - canvas.getBoundingClientRect().x;
     mouseCoorY = e.clientY - canvas.getBoundingClientRect().y;
-  }
+  };
 }
-
 
 //coordinates to draw bar indicating location of player offscreen
 
 function offScreenLine(x, y) {
-
   var offset = 2;
   var radius = 8;
 
-  var a1 = (Math.atan2(-200, 300) + (2 * Math.PI)) % (2 * Math.PI); //top right
-  var a2 = (Math.atan2(200, 300) + (2 * Math.PI)) % (2 * Math.PI); //bottom right
-  var a3 = (Math.atan2(200, -300) + (2 * Math.PI)) % (2 * Math.PI); //bottom left
-  var a4 = (Math.atan2(-200, -300) + (2 * Math.PI)) % (2 * Math.PI); //top left
+  var a1 = (Math.atan2(-200, 300) + 2 * Math.PI) % (2 * Math.PI); //top right
+  var a2 = (Math.atan2(200, 300) + 2 * Math.PI) % (2 * Math.PI); //bottom right
+  var a3 = (Math.atan2(200, -300) + 2 * Math.PI) % (2 * Math.PI); //bottom left
+  var a4 = (Math.atan2(-200, -300) + 2 * Math.PI) % (2 * Math.PI); //top left
 
-  var angle = (Math.atan2((y - 200), (x - 300)) + (2 * Math.PI)) % (2 * Math.PI);
+  var angle = (Math.atan2(y - 200, x - 300) + 2 * Math.PI) % (2 * Math.PI);
 
-  if ((a2 <= angle) && (angle < a3)) { //bottom wall
-    var new_x1 = 300 + (200 * Math.tan((0.5 * Math.PI) - angle)) - radius;
+  if (a2 <= angle && angle < a3) {
+    //bottom wall
+    var new_x1 = 300 + 200 * Math.tan(0.5 * Math.PI - angle) - radius;
     var new_y1 = -offset + 400;
-    var new_x2 = new_x1 + (2 * radius);
+    var new_x2 = new_x1 + 2 * radius;
     var new_y2 = new_y1;
-  }
-  else if ((a3 <= angle) && (angle < a4)) { //left wall
+  } else if (a3 <= angle && angle < a4) {
+    //left wall
     var new_x1 = offset;
-    var new_y1 = 200 + (-300 * Math.tan(angle)) - radius;
+    var new_y1 = 200 + -300 * Math.tan(angle) - radius;
     var new_x2 = new_x1;
-    var new_y2 = new_y1 + (2 * radius);
-  }
-  else if ((a4 <= angle) && (angle < a1)) { //top wall
-    var new_x1 = 300 + (-200 * Math.tan((0.5 * Math.PI) - angle)) - radius;
+    var new_y2 = new_y1 + 2 * radius;
+  } else if (a4 <= angle && angle < a1) {
+    //top wall
+    var new_x1 = 300 + -200 * Math.tan(0.5 * Math.PI - angle) - radius;
     var new_y1 = offset;
-    var new_x2 = new_x1 + (2 * radius);
+    var new_x2 = new_x1 + 2 * radius;
     var new_y2 = new_y1;
-  }
-  else { //right wall
+  } else {
+    //right wall
     var new_x1 = -offset + 600;
-    var new_y1 = 200 + (300 * Math.tan(angle)) - radius;
+    var new_y1 = 200 + 300 * Math.tan(angle) - radius;
     var new_x2 = new_x1;
-    var new_y2 = new_y1 + (2 * radius);
+    var new_y2 = new_y1 + 2 * radius;
   }
   return [new_x1, new_y1, new_x2, new_y2];
 }
 
-
 function draw(x, y, map, players) {
-
+  var playerCamera = document.getElementById("player-video");
   const constraints = {
     video: true,
-    audio: false // If you want audio, set this to true
+    audio: false, // If you want audio, set this to true
   };
   // test video code close
   var canvas = document.getElementById("canvas");
@@ -99,8 +102,8 @@ function draw(x, y, map, players) {
   var w = document.getElementById("canvas").offsetWidth;
   var h = document.getElementById("canvas").offsetHeight;
 
-  let top_x = x * objectSizes + (objectSizes / 2) - (w / 2);
-  let top_y = y * objectSizes + (objectSizes / 2) - (h / 2);
+  let top_x = x * objectSizes + objectSizes / 2 - w / 2;
+  let top_y = y * objectSizes + objectSizes / 2 - h / 2;
   top_x = clamp(top_x, 0, max(0, imageDimensionsMap[map][0] - w - 1));
   top_y = clamp(top_y, 0, max(0, imageDimensionsMap[map][1] - h - 1));
 
@@ -111,14 +114,11 @@ function draw(x, y, map, players) {
   }
 
   if (!(map in terrainImages)) {
-    terrainImages[map] = new Image;
+    terrainImages[map] = new Image();
     terrainImages[map].src = imageMap[map];
   }
 
-  ctx.drawImage(
-    terrainImages[map],
-    top_x, top_y, w, h,
-    0, 0, w, h);
+  ctx.drawImage(terrainImages[map], top_x, top_y, w, h, 0, 0, w, h);
 
   // ctx.beginPath();
   // ctx.lineWidth = "4";
@@ -136,7 +136,7 @@ function draw(x, y, map, players) {
 
   if (!(map in playerImages)) {
     if (map in characterMap) {
-      characterMap[map].forEach(characterId => {
+      characterMap[map].forEach((characterId) => {
         playerImages[characterId] = new Image();
         playerImages[characterId].src = characterIds[characterId];
       });
@@ -147,19 +147,17 @@ function draw(x, y, map, players) {
   }
 
   // TODO fix this
-  let mapNames = document.getElementsByClassName("map-name-container")
-  for (let mapNameContainer of mapNames) {
-    mapNameContainer.hidden = true;
-  }
-  players.forEach(player => {
+  let mapNames = document.getElementsByClassName("map-name-container");
+  // for (let mapNameContainer of mapNames) {
+  //   mapNameContainer.hidden = true;
+  // }
+  players.forEach((player) => {
     let direction = directionCoors[player.currentDirection];
 
-    let drawX = (player.position.x * objectSizes - top_x);
-    let drawY = (player.position.y * objectSizes - top_y);
+    let drawX = player.position.x * objectSizes - top_x;
+    let drawY = player.position.y * objectSizes - top_y;
 
     if (drawX >= 0 && drawX < w && drawY >= 0 && drawY < h) {
-
-
       ctx.drawImage(
         playerImages[player.characterId],
         direction.x,
@@ -174,37 +172,36 @@ function draw(x, y, map, players) {
       ctx.beginPath();
       ctx.lineWidth = "2";
       ctx.strokeStyle = colors[player.playerId % colors.length];
-      ctx.rect(
-        drawX,
-        drawY,
-        objectSizes,
-        objectSizes
-      );
+      ctx.rect(drawX, drawY, objectSizes, objectSizes);
       ctx.stroke();
 
-      let mapNameContainer = document.getElementById("map-name-container-" + player.playerId)
+      let mapNameContainer = document.getElementById(
+        "map-name-container-" + player.playerId
+      );
+      console.log("mapNameContainer", mapNameContainer);
       let mousedOver =
-        mouseCoorX >= drawX
-        && mouseCoorX <= drawX + objectSizes
-        && mouseCoorY >= drawY && mouseCoorY <= drawY + objectSizes;
-
+        mouseCoorX >= drawX &&
+        mouseCoorX <= drawX + objectSizes &&
+        mouseCoorY >= drawY &&
+        mouseCoorY <= drawY + objectSizes;
 
       if (
-        (showNames || mousedOver)
-        && playersNameMap[player.playerId] && mapNameContainer
+        (showNames || mousedOver) &&
+        playersNameMap[player.playerId] &&
+        mapNameContainer
       ) {
         // Draw the name
-        mapNameContainer.style.left = drawX + (objectSizes / 2) + "px";
+        mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
         mapNameContainer.style.top = drawY + objectSizes + "px";
-        mapNameContainer.style.border = "solid 2px " + colors[player.playerId % colors.length];
+        mapNameContainer.style.border =
+          "solid 2px " + colors[player.playerId % colors.length];
         mapNameContainer.style.transform = "translateX(-50%)";
         mapNameContainer.textContent = playersNameMap[player.playerId];
         mapNameContainer.hidden = false;
       } else if (mapNameContainer) {
         mapNameContainer.hidden = true;
       }
-    }
-    else {
+    } else {
       if (!window.selectedIds || window.selectedIds[player.playerId]) {
         var position = offScreenLine(drawX, drawY);
         ctx.beginPath();
@@ -216,6 +213,15 @@ function draw(x, y, map, players) {
         ctx.closePath();
       }
     }
+    playerCamera.style.left = drawX + objectSizes / 2 + "px";
+    playerCamera.style.top = drawY - 30 + "px";
+    playerCamera.style.background = "rgba(0, 0, 0, 0.6)";
+    playerCamera.style.padding = "2px 10px";
+    playerCamera.style.borderRadius = "6px";
+    playerCamera.style.color = "white";
+    playerCamera.style.fontWeight = "bold";
+    playerCamera.style.transform = "translateX(-50%)";
+    playerCamera.textContent = "username";
   });
 
   let blockedText = document.getElementById("blocked-text");
@@ -224,7 +230,6 @@ function draw(x, y, map, players) {
   }
 }
 // const updateScene = (direction, drawX, drawY, objectSizes, playerImages, _player, ctx) => {
-
 
 //   requestAnimationFrame(updateScene)
 // }
@@ -245,13 +250,17 @@ export function update(myPlayer, players) {
   if (!myPlayer) {
     return;
   }
-  players.forEach(player => {
+  players.forEach((player) => {
     let name = "";
-    if (playerMap && player.playerId in playerMap && "name" in playerMap[player.playerId]) {
+    if (
+      playerMap &&
+      player.playerId in playerMap &&
+      "name" in playerMap[player.playerId]
+    ) {
       name = playerMap[player.playerId]["name"];
     }
     playersNameMap[player.playerId] = name;
-  })
+  });
   draw(myPlayer.position.x, myPlayer.position.y, myPlayer.currentMap, players);
 }
 

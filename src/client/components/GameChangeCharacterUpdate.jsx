@@ -12,15 +12,12 @@ export default function GameChangeCharacterUpdate(props) {
     setCharacterId,
     characterData: { id: selectedId },
   } = useCharacter();
-  console.log("characterData", selectedId);
-  // console.log("props", props);
-  // if (props.characterId && props.currentMap && characterMap[props.currentMap]) {
   let ids = characterMap[110];
   return (
-    <div className="w-full flex gap-4 flex-wrap">
+    <div className="w-full flex flex-wrap !w-auto !h-auto gap-4 ">
       {ids.map((id) => {
         return (
-          <div key={id}>
+          <div key={id} className="h-fit">
             <img
               src={characterIds[id]}
               onClick={() => setCharacterId(id)}

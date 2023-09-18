@@ -1,11 +1,7 @@
 import React from "react";
 import "./CameraStream.css";
 const CameraStream = () => {
-  return (
-    <div id="player-container">
-      <video id="player-video" autoplay playsinline></video>
-    </div>
-  );
+  return <span id="player-video"></span>;
 };
 
 export default CameraStream;
