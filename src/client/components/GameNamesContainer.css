@@ -1,11 +1,11 @@
 #names-container {
-  display: block;
-  position: absolute;
-  left: 610px;
-  top: 0px;
-  height: 300px;
-  overflow-y: auto;
-  width: 140px;
+	display: block;
+	position: absolute;
+	left: 610px;
+	top: 0px;
+	height: 300px;
+	overflow-y: auto;
+	width: 100%;
 }
 
 #names-container > div {

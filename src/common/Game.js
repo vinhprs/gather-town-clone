@@ -57,7 +57,7 @@ export default class Game extends GameEngine {
       return;
     }
     this.lastStep[playerId] = inputData.step;
-    
+
     let player = this.world.queryObject({ playerId });
     if (player) {
       let players = this.world.queryObjects({ instanceType: Player });
@@ -79,16 +79,16 @@ export default class Game extends GameEngine {
         if (collisionMap[player.currentMap][y][x] === 1) return false;
         return true;
       }
-    
+
       let newX = player.position.x;
       let newY = player.position.y;
 
-      switch(inputData.input) {
+      switch (inputData.input) {
         case "left":
           newX = player.position.x - SPEED / MODIFIER;
-          if(player.currentDirection == directionMap["left-1"]) {
+          if (player.currentDirection == directionMap["left-1"]) {
             player.currentDirection = directionMap["left-2"];
-          } else if(player.currentDirection == directionMap["left-2"]) {
+          } else if (player.currentDirection == directionMap["left-2"]) {
             player.currentDirection = directionMap["left-1"];
           } else {
             player.currentDirection = directionMap["left-1"];
@@ -96,9 +96,9 @@ export default class Game extends GameEngine {
           break;
         case "right":
           newX = player.position.x + SPEED / MODIFIER;
-          if(player.currentDirection == directionMap["right-1"]) {
+          if (player.currentDirection == directionMap["right-1"]) {
             player.currentDirection = directionMap["right-2"];
-          } else if(player.currentDirection == directionMap["right-2"]) {
+          } else if (player.currentDirection == directionMap["right-2"]) {
             player.currentDirection = directionMap["right-1"];
           } else {
             player.currentDirection = directionMap["right-1"];
@@ -106,9 +106,9 @@ export default class Game extends GameEngine {
           break;
         case "up":
           newY = player.position.y - SPEED / MODIFIER;
-          if(player.currentDirection == directionMap["up-1"]) {
+          if (player.currentDirection == directionMap["up-1"]) {
             player.currentDirection = directionMap["up-2"];
-          } else if(player.currentDirection == directionMap["up-2"]) {
+          } else if (player.currentDirection == directionMap["up-2"]) {
             player.currentDirection = directionMap["up-1"];
           } else {
             player.currentDirection = directionMap["up-1"];
@@ -117,9 +117,9 @@ export default class Game extends GameEngine {
           break;
         case "down":
           newY = player.position.y + SPEED / MODIFIER;
-          if(player.currentDirection == directionMap["down-1"]) {
+          if (player.currentDirection == directionMap["down-1"]) {
             player.currentDirection = directionMap["down-2"];
-          } else if(player.currentDirection == directionMap["down-2"]) {
+          } else if (player.currentDirection == directionMap["down-2"]) {
             player.currentDirection = directionMap["down-1"];
           } else {
             player.currentDirection = directionMap["down-1"];
@@ -144,6 +144,7 @@ export default class Game extends GameEngine {
         player.position.y = newY;
       }
 
+
       let endingVal = collisionMap[player.currentMap][player.position.y][player.position.x]
       // Check if portal
       if (endingVal >= 100 && (inputData.step - this.lastTeleport) > TELEPORT_INTERVAL) {
@@ -154,29 +155,29 @@ export default class Game extends GameEngine {
           || portalDirectionMap[player.currentMap][portalId] === "right" && (player.currentDirection === directionMap["right-1"] || player.currentDirection === directionMap["right-2"])
           || portalDirectionMap[player.currentMap][portalId] === "down" && (player.currentDirection === directionMap["down-1"] || player.currentDirection === directionMap["down-2"])
           || portalDirectionMap[player.currentMap][portalId] === "left" && (player.currentDirection === directionMap["left-1"] || player.currentDirection === directionMap["left-2"])) {
-            let portalX = null, portalY = null;
-            collisionMap[newMap].forEach((row, idxY) => {
-              row.forEach((element, idxX) => {
-                if (element === parseFloat(player.currentMap + "." + portalId)) {
-                  portalX = idxX;
-                  portalY = idxY;
-                }
-              })
+          let portalX = null, portalY = null;
+          collisionMap[newMap].forEach((row, idxY) => {
+            row.forEach((element, idxX) => {
+              if (element === parseFloat(player.currentMap + "." + portalId)) {
+                portalX = idxX;
+                portalY = idxY;
+              }
             })
- 
-            let oppositeMap = {
-              "up": 1,
-              "right": 5,
-              "down": 3,
-              "left": 7
-            };
-            if (portalX !== null && portalY !== null) {
-              player.position.x = portalX;
-              player.position.y = portalY;
-              player.currentDirection = oppositeMap[portalDirectionMap[newMap][portalId]];
-              player.currentMap = newMap;
-              this.lastTeleport = inputData.step;
-            }
+          })
+
+          let oppositeMap = {
+            "up": 1,
+            "right": 5,
+            "down": 3,
+            "left": 7
+          };
+          if (portalX !== null && portalY !== null) {
+            player.position.x = portalX;
+            player.position.y = portalY;
+            player.currentDirection = oppositeMap[portalDirectionMap[newMap][portalId]];
+            player.currentMap = newMap;
+            this.lastTeleport = inputData.step;
+          }
         }
       }
     }

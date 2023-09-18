@@ -1,13 +1,15 @@
 .videos-container {
-  width: 625px;
-  display: flex;
-  margin-top: 10px;
-  flex-wrap: wrap;
+	width: 625px;
+	display: flex;
+	margin-top: 20px;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
 }
 
 .videos-max-connections {
-  width: 625px;
-  display: flex;
-  margin-top: 40px;
-  flex-wrap: wrap;
+	width: 625px;
+	display: flex;
+	margin-top: 40px;
+	flex-wrap: wrap;
 }

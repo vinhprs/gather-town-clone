@@ -87,8 +87,7 @@ function offScreenLine(x, y) {
 
 
 function draw(x, y, map, players) {
-  // test video code open
-  var playerCamera = document.getElementById("player-video");
+
   const constraints = {
     video: true,
     audio: false // If you want audio, set this to true
@@ -155,10 +154,12 @@ function draw(x, y, map, players) {
   players.forEach(player => {
     let direction = directionCoors[player.currentDirection];
 
-    let drawX = player.position.x * objectSizes - top_x;
-    let drawY = player.position.y * objectSizes - top_y;
+    let drawX = (player.position.x * objectSizes - top_x);
+    let drawY = (player.position.y * objectSizes - top_y);
 
     if (drawX >= 0 && drawX < w && drawY >= 0 && drawY < h) {
+
+
       ctx.drawImage(
         playerImages[player.characterId],
         direction.x,
@@ -170,7 +171,6 @@ function draw(x, y, map, players) {
         objectSizes,
         objectSizes
       );
-
       ctx.beginPath();
       ctx.lineWidth = "2";
       ctx.strokeStyle = colors[player.playerId % colors.length];
@@ -187,12 +187,7 @@ function draw(x, y, map, players) {
         mouseCoorX >= drawX
         && mouseCoorX <= drawX + objectSizes
         && mouseCoorY >= drawY && mouseCoorY <= drawY + objectSizes;
-      // test playerCamera
-      playerCamera.style.left = drawX + (objectSizes / 2) + "px";
-      playerCamera.style.top = drawY - 70 + "px";
-      playerCamera.style.border = "solid 2px white";
-      playerCamera.style.transform = "translateX(-50%)";
-      // close test playerCamera
+
 
       if (
         (showNames || mousedOver)
@@ -211,7 +206,7 @@ function draw(x, y, map, players) {
     }
     else {
       if (!window.selectedIds || window.selectedIds[player.playerId]) {
-        var position = offScreenLine(drawX + 10, drawY + 10);
+        var position = offScreenLine(drawX, drawY);
         ctx.beginPath();
         ctx.lineWidth = "4";
         ctx.strokeStyle = colors[player.playerId % colors.length];
@@ -228,6 +223,11 @@ function draw(x, y, map, players) {
     blockedText.hidden = !isBlocked(x, y, players, collisionMap[map]);
   }
 }
+// const updateScene = (direction, drawX, drawY, objectSizes, playerImages, _player, ctx) => {
+
+
+//   requestAnimationFrame(updateScene)
+// }
 
 export function setShowNames(newShowNames) {
   if (newShowNames === undefined) {

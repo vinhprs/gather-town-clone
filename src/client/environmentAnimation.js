@@ -35,4 +35,5 @@ export function updateAnim(map, ctx, top_x, top_y, objectSizes) {
   });
 
   oldMap = map;
+
 }

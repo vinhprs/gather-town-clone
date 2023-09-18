@@ -40,31 +40,32 @@ export default function GameCanvas(props) {
 
 	return (
 		<div style={{ position: "relative" }} className="game-container">
-			{linkContainer}
-			<CameraStream />
 			<canvas
 				id="canvas"
 				width="1024"
 				height="1024"
-				style={{ position: "relative", zIndex: 9999 }}></canvas>
+				style={{
+					position: "relative",
+					zIndex: 9999,
+				}}></canvas>
 			{props.inGame ? (
 				<>
-					<GameChat
+					{/* <GameChat
 						sendChatMessage={props.sendChatMessage}
 						chatMessages={props.chatMessages}
 						playerInfoMap={props.playerInfoMap}
 						hasLinks={props.hasLinks}
-					/>
+					/> */}
 					<GameNamesContainer
 						playerInfoMap={props.playerInfoMap}
 						playerVideoMap={props.playerVideoMap}
 						profPics={props.profPics}
 					/>
-					<GameChangeCharacter
+					{/* <GameChangeCharacter
 						setCharacterId={props.setCharacterId}
 						characterId={props.characterId}
 						currentMap={props.currentMap}
-					/>
+					/> */}
 				</>
 			) : null}
 			{Object.keys(props.playerInfoMap).map((key) => (
@@ -73,27 +74,6 @@ export default function GameCanvas(props) {
 					className="map-name-container"
 					id={"map-name-container-" + key}></div>
 			))}
-			<div id="blocked-text" hidden>
-				We detect you've been blocked. Press spacebar, if you'd like to teleport
-				out.
-			</div>
-			{showTutorial && props.inGame ? (
-				<div id="tutorial-text">
-					{/* <div>
-              1) Use your arrow keys to move around <br />
-              2) You only see and hear people when you move next to them (and if you can't check if your webcam is connected) <br />
-              3) You can block users by hovering your mouse over their video
-            </div> */}
-					<div
-						onClick={() => {
-							seenTutorial();
-						}}>
-						<i
-							className="fas fa-times selection-icon-fas red"
-							style={{ position: "absolute", top: "10px", right: "10px" }}></i>
-					</div>
-				</div>
-			) : null}
 		</div>
 	);
 }

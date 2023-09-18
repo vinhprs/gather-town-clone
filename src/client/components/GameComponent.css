@@ -1,29 +1,39 @@
+#videos-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999999;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
 .ot-gamecomponent-closed-message {
-  display: flex;
-  width: 600px;
-  height: 400px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
+	display: flex;
+	width: 600px;
+	height: 400px;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
 }
 
 .ot-gamecomponent-disconnect-message {
-  color: red;
-  width: 500px;
-  margin: 15px;
-  margin-bottom: 20px;
+	color: red;
+	width: 500px;
+	margin: 15px;
+	margin-bottom: 20px;
 }
 
 .ot-link-container {
-  position: absolute;
-  width: 115px;
-  left: -190px;
+	position: absolute;
+	width: 115px;
+	left: -190px;
 }
 
-.ot-link-container p{
-  padding-bottom: 4px;
+.ot-link-container p {
+	padding-bottom: 4px;
 }
 
-.ot-link-container a{
-  font-weight: 500;
+.ot-link-container a {
+	font-weight: 500;
 }
