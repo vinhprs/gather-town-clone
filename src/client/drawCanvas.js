@@ -151,7 +151,23 @@ function draw(x, y, map, players) {
   // for (let mapNameContainer of mapNames) {
   //   mapNameContainer.hidden = true;
   // }
+  console.log("players", players);
+  const playerRefList = {};
+
+  players.forEach((item) => {
+    playerRefList[item.playerId] = document.getElementById(
+      "map-name-container-" + item.playerId
+    );
+  });
+
+  // let mapNameContainer = document.getElementById(
+  //   "map-name-container-" + player.playerId
+  // );
+
+  console.log("players", players);
   players.forEach((player) => {
+    const refPlayer = playerRefList[player.playerId];
+    console.log("refPlayer", refPlayer);
     let direction = directionCoors[player.currentDirection];
 
     let drawX = player.position.x * objectSizes - top_x;
@@ -175,32 +191,32 @@ function draw(x, y, map, players) {
       ctx.rect(drawX, drawY, objectSizes, objectSizes);
       ctx.stroke();
 
-      let mapNameContainer = document.getElementById(
-        "map-name-container-" + player.playerId
-      );
-      console.log("mapNameContainer", mapNameContainer);
-      let mousedOver =
-        mouseCoorX >= drawX &&
-        mouseCoorX <= drawX + objectSizes &&
-        mouseCoorY >= drawY &&
-        mouseCoorY <= drawY + objectSizes;
+      // let mapNameContainer = document.getElementById(
+      //   "map-name-container-" + player.playerId
+      // );
+      // console.log("mapNameContainer", mapNameContainer);
+      // let mousedOver =
+      //   mouseCoorX >= drawX &&
+      //   mouseCoorX <= drawX + objectSizes &&
+      //   mouseCoorY >= drawY &&
+      //   mouseCoorY <= drawY + objectSizes;sssssssssssss
 
-      if (
-        (showNames || mousedOver) &&
-        playersNameMap[player.playerId] &&
-        mapNameContainer
-      ) {
-        // Draw the name
-        mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
-        mapNameContainer.style.top = drawY + objectSizes + "px";
-        mapNameContainer.style.border =
-          "solid 2px " + colors[player.playerId % colors.length];
-        mapNameContainer.style.transform = "translateX(-50%)";
-        mapNameContainer.textContent = playersNameMap[player.playerId];
-        mapNameContainer.hidden = false;
-      } else if (mapNameContainer) {
-        mapNameContainer.hidden = true;
-      }
+      // if (
+      //   (showNames || mousedOver) &&
+      //   playersNameMap[player.playerId] &&
+      //   mapNameContainer
+      // ) {
+      //   // Draw the name
+      //   mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
+      //   mapNameContainer.style.top = drawY + objectSizes + "px";
+      //   mapNameContainer.style.border =
+      //     "solid 2px " + colors[player.playerId % colors.length];
+      //   mapNameContainer.style.transform = "translateX(-50%)";
+      //   mapNameContainer.textContent = playersNameMap[player.playerId];
+      //   mapNameContainer.hidden = false;
+      // } else if (mapNameContainer) {
+      //   mapNameContainer.hidden = true;
+      // }
     } else {
       if (!window.selectedIds || window.selectedIds[player.playerId]) {
         var position = offScreenLine(drawX, drawY);
@@ -213,15 +229,15 @@ function draw(x, y, map, players) {
         ctx.closePath();
       }
     }
-    playerCamera.style.left = drawX + objectSizes / 2 + "px";
-    playerCamera.style.top = drawY - 30 + "px";
-    playerCamera.style.background = "rgba(0, 0, 0, 0.6)";
-    playerCamera.style.padding = "2px 10px";
-    playerCamera.style.borderRadius = "6px";
-    playerCamera.style.color = "white";
-    playerCamera.style.fontWeight = "bold";
-    playerCamera.style.transform = "translateX(-50%)";
-    playerCamera.textContent = "username";
+    refPlayer.style.left = drawX + objectSizes / 2 + "px";
+    refPlayer.style.top = drawY - 30 + "px";
+    refPlayer.style.background = "rgba(0, 0, 0, 0.6)";
+    refPlayer.style.padding = "2px 10px";
+    refPlayer.style.borderRadius = "6px";
+    refPlayer.style.color = "white";
+    refPlayer.style.fontWeight = "bold";
+    refPlayer.style.transform = "translateX(-50%)";
+    refPlayer.textContent = "username";
   });
 
   let blockedText = document.getElementById("blocked-text");
