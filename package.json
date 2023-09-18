@@ -10,7 +10,7 @@
     "build": "npm run build-client && npm run build-server",
     "build-prod": "webpack --config webpack.prod.js && babel src --out-dir dist-server",
     "dev": "webpack --config webpack.dev.js --watch",
-    "start-http": "node dist-server/main.js",
+    "start-http": "nodemon dist-server/main.js",
     "start-game": "node dist-server/game-server.js",
     "start-http-keepalive": "sh ./src/keep_alive.sh npm run start-http",
     "start-game-keepalive": "sh ./src/keep_alive.sh npm run start-game"

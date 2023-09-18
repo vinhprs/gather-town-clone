@@ -49,7 +49,7 @@ export default function GameVideo (props) {
     if (props.distance) {
       if (distToOpacity(props.distance) !== undefined) {
         video.parentElement.parentElement.style.opacity = distToOpacity(props.distance);
-      }s
+      }
       if (distToVolume(props.distance) !== undefined) {
         video.volume = distToVolume(props.distance);
       }
