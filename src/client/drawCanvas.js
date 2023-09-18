@@ -90,6 +90,7 @@ function offScreenLine(x, y) {
 }
 
 function draw(x, y, map, players) {
+  // test video code open
   var playerCamera = document.getElementById("player-video");
   const constraints = {
     video: true,
@@ -180,10 +181,15 @@ function draw(x, y, map, players) {
       );
       console.log("mapNameContainer", mapNameContainer);
       let mousedOver =
-        mouseCoorX >= drawX &&
-        mouseCoorX <= drawX + objectSizes &&
-        mouseCoorY >= drawY &&
-        mouseCoorY <= drawY + objectSizes;
+        mouseCoorX >= drawX
+        && mouseCoorX <= drawX + objectSizes
+        && mouseCoorY >= drawY && mouseCoorY <= drawY + objectSizes;
+      // test playerCamera
+      playerCamera.style.left = drawX + (objectSizes / 2) + "px";
+      playerCamera.style.top = drawY - 70 + "px";
+      playerCamera.style.border = "solid 2px white";
+      playerCamera.style.transform = "translateX(-50%)";
+      // close test playerCamera
 
       if (
         (showNames || mousedOver) &&

@@ -19,7 +19,7 @@ import "./LayoutInGame.css";
 const LayoutInGame = ({ children }) => {
 	return (
 		<div className="main-game-container">
-			<div className="flex">
+			<div className="top-layout">
 				<div className="game-body">{children}</div>
 				<div className="bar-container">
 					<h1>E6 1 U7 BIRTHDAY BASEBALL</h1>
@@ -32,7 +32,7 @@ const LayoutInGame = ({ children }) => {
 				</div>
 			</div>
 			<div className="control-container">
-				<div className="flex gap-4">
+				<div className="v-flex gap-4">
 					<div className="logo">
 						<BiLogoAirbnb size={20} color="white" />
 					</div>
