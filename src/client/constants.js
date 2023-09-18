@@ -1,5 +1,5 @@
-import React from 'react';
-import firebase from 'firebase';
+import React from "react";
+import firebase from "firebase";
 
 firebase.initializeApp({
   apiKey: "BLANK",
@@ -8,41 +8,44 @@ firebase.initializeApp({
   projectId: "BLANK",
   storageBucket: "BLANK",
   messagingSenderId: "BLANK",
-  appId: "BLANK"
+  appId: "BLANK",
 });
 
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 
 export var colors = [
-  '#d32f2f',
-  '#c2185b',
-  '#7b1fa2',
-  '#512da8',
-  '#303f9f',
-  '#1976d2',
-  '#0288d1',
-  '#0097a7',
-  '#00796b',
-  '#388e3c',
-  '#689f38',
-  '#afb42b',
-  '#ffd835',
-  '#ffb300',
-  '#fb8c00',
-  '#f4511e',
+  "#d32f2f",
+  "#c2185b",
+  "#7b1fa2",
+  "#512da8",
+  "#303f9f",
+  "#1976d2",
+  "#0288d1",
+  "#0097a7",
+  "#00796b",
+  "#388e3c",
+  "#689f38",
+  "#afb42b",
+  "#ffd835",
+  "#ffb300",
+  "#fb8c00",
+  "#f4511e",
 ];
 
 export const subdomainElMap = {
   "": {
-    "header-title": <>Online Town</>,
-    "public-text": <><span style={{color: 'red'}}>The public room is currently down.</span> Check back later!</>,
+    "header-title": <p className="text-white">Online Town</p>,
+    "public-text": (
+      <>
+        <span style={{ color: "red" }}>The public room is currently down.</span>{" "}
+        Check back later!
+      </>
+    ),
   },
-}
+};
 
-export const roomNameMap = {
-
-}
+export const roomNameMap = {};
 
 export var PUBLIC_MAP = {
   "": 160,
@@ -68,8 +71,7 @@ export var characterIds = {
   100: "/images/characters/player_bike_0.png",
   101: "/images/characters/player_bike_6.png",
   102: "/images/characters/player_bike_7.png",
-  164: "/images/characters/james.png"
-}
-
+  164: "/images/characters/james.png",
+};
 
 export var CHAT_LIMIT = 100;
