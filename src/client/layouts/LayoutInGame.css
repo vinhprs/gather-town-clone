@@ -153,8 +153,10 @@
 	border-top: 1px solid rgb(70, 75, 104);
 }
 .game-body {
+	width: 100%;
 	flex: 1;
 	height: 100%;
+	position: relative;
 	z-index: 99;
 	left: 0;
 }

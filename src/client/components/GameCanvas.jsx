@@ -55,7 +55,7 @@ export default function GameCanvas(props) {
 		<div style={{ position: "relative" }} className="game-container">
 			{linkContainer}
 			{/* <CameraStream /> */}
-			<div className="relative w-[1024px] h-[900px] border-2">
+			<div className="relative w-[1024px] h-[900px] border-2 m-auto">
 				<CameraStream />
 				{Object.keys(props.playerInfoMap).map((key) => (
 					<div

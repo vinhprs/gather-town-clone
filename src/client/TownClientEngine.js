@@ -1,17 +1,23 @@
-import { ClientEngine } from 'lance-gg';
-import { getRoomFromPath, isPublic, isProd, getSubDomain } from './utils';
-import { drawInit, update, updatePlayerMap, publicUpdate, setShowNames }  from './drawCanvas';
-import { updateSound } from './environmentSounds';
-import { PUBLIC_MAP, auth } from './constants';
-import { localPreferences } from './LocalPreferences';
-import { updateRoomVisit, updateRoomData } from './userData';
-import newKeyboardControls from './NonStealingKeyboardControls';
-import { getPlayerDistance } from '../common/utils';
-import { Player } from '../common/gameObjects';
-import { collisionMap } from '../common/maps';
-import EventProvider from '../common/EventProvider';
+import { ClientEngine } from "lance-gg";
+import { getRoomFromPath, isPublic, isProd, getSubDomain } from "./utils";
+import {
+  drawInit,
+  update,
+  updatePlayerMap,
+  publicUpdate,
+  setShowNames,
+} from "./drawCanvas";
+import { updateSound } from "./environmentSounds";
+import { PUBLIC_MAP, auth } from "./constants";
+import { localPreferences } from "./LocalPreferences";
+import { updateRoomVisit, updateRoomData } from "./userData";
+import newKeyboardControls from "./NonStealingKeyboardControls";
+import { getPlayerDistance } from "../common/utils";
+import { Player } from "../common/gameObjects";
+import { collisionMap } from "../common/maps";
+import EventProvider from "../common/EventProvider";
 
-import deepEqual from 'fast-deep-equal';
+import deepEqual from "fast-deep-equal";
 
 export default class TownClientEngine extends ClientEngine {
   constructor(gameEngine, inputOptions, renderer) {
@@ -27,14 +33,14 @@ export default class TownClientEngine extends ClientEngine {
       this.isPublic = true;
     }
 
-    gameEngine.on('client__rendererReady', this.clientSideInit.bind(this));
-    gameEngine.on('client__draw', this.clientSideDraw.bind(this));
+    gameEngine.on("client__rendererReady", this.clientSideInit.bind(this));
+    gameEngine.on("client__draw", this.clientSideDraw.bind(this));
 
     this.eventProvider = new EventProvider([]);
 
     let roomsData = localPreferences.get("rooms");
     if (!roomsData || !(getRoomFromPath() in roomsData)) {
-      updateRoomData(getRoomFromPath(), {"name": ""});
+      updateRoomData(getRoomFromPath(), { name: "" });
     }
     updateRoomVisit(getRoomFromPath());
     localPreferences.on("rooms", (data) => {
@@ -42,10 +48,11 @@ export default class TownClientEngine extends ClientEngine {
       if (thisRoomData) {
         this.sendPlayerInfo(thisRoomData);
       }
-    })
+    });
 
     this.currentMap = null;
     this.characterId = null;
+    this.username = null;
 
     /*
       playerInfo schema:
@@ -69,22 +76,23 @@ export default class TownClientEngine extends ClientEngine {
         // Is it causing more latency to do force refresh all the time?
         tokenPromise = auth.currentUser.getIdToken(true);
       }
-      tokenPromise.then(token => {
-        if (token) {
-          data["userToken"] = token;
-        }
-        this.socket.emit("roomId", data);
-      })
-      .catch(err => {
-        console.error("Error with token promise", err);
-      });
+      tokenPromise
+        .then((token) => {
+          if (token) {
+            data["userToken"] = token;
+          }
+          this.socket.emit("roomId", data);
+        })
+        .catch((err) => {
+          console.error("Error with token promise", err);
+        });
 
       this.socket.on("serverPlayerInfo", (data) => {
         if ("firstUpdate" in data) {
           console.log("firstupdate");
           let id = localPreferences.get("user")["id"];
           let firstUpdate = localPreferences.get("rooms")[getRoomFromPath()];
-          this.sendPlayerInfo(Object.assign(firstUpdate, {"publicId": id}));
+          this.sendPlayerInfo(Object.assign(firstUpdate, { publicId: id }));
           delete data["firstUpdate"];
         }
         updatePlayerMap(data);
@@ -98,33 +106,33 @@ export default class TownClientEngine extends ClientEngine {
 
       this.socket.on("roomClosed", () => {
         this.eventProvider.fire("roomClosed");
-      })
+      });
 
       this.socket.on("serverChatMessage", (data) => {
         this.eventProvider.fire("serverChatMessage", data);
       });
 
-      this.socket.on("modMessage", message => {
+      this.socket.on("modMessage", (message) => {
         this.eventProvider.fire("modMessage", message);
       });
 
-      this.socket.on("roomSettings", settings => {
+      this.socket.on("roomSettings", (settings) => {
         if (settings.showNames !== undefined) {
-          setShowNames(settings.showNames)
+          setShowNames(settings.showNames);
         }
         this.eventProvider.fire("settings", settings);
       });
 
-      this.socket.on("sizeLimit", limit => {
+      this.socket.on("sizeLimit", (limit) => {
         this.eventProvider.fire("sizeLimit", limit);
-      })
+      });
 
-      this.socket.on("")
+      this.socket.on("");
 
       if (this.pendingInitPlayer) {
         this.initPlayer();
       }
-    })
+    });
   }
 
   initPlayer() {
@@ -132,7 +140,7 @@ export default class TownClientEngine extends ClientEngine {
       this.pendingInitPlayer = true;
       return;
     }
-    
+
     this.socket.emit("initPlayer", getRoomFromPath());
     this.videosEnabled = true;
     this.playerInitialized = true;
@@ -148,21 +156,21 @@ export default class TownClientEngine extends ClientEngine {
     // time is milliseconds since epoch
     // isStart is if it's the start of a call, or end of call
     this.socket.emit("videoMetric", {
-      "userId": localPreferences.get("user")["id"],
-      "playerId": playerId,
-      "time": time,
-      "isStart": isStart,
-      "isProd": isProd()
+      userId: localPreferences.get("user")["id"],
+      playerId: playerId,
+      time: time,
+      isStart: isStart,
+      isProd: isProd(),
     });
   }
 
   sendOnVideoMetric(time, isStart) {
     // If the player was on video with anyone
     this.socket.emit("onVideoMetric", {
-      "userId": localPreferences.get("user")["id"],
-      "time": time,
-      "isStart": isStart,
-      "isProd": isProd()
+      userId: localPreferences.get("user")["id"],
+      time: time,
+      isStart: isStart,
+      isProd: isProd(),
     });
   }
 
@@ -174,12 +182,12 @@ export default class TownClientEngine extends ClientEngine {
 
   initKeyboardControls() {
     this.gameEngine.controls = newKeyboardControls(this);
-    this.gameEngine.controls.bindKey(['up', 'w'], 'up', { repeat: true } );
-    this.gameEngine.controls.bindKey(['down', 's'], 'down', { repeat: true } );
-    this.gameEngine.controls.bindKey(['left', 'a'], 'left', { repeat: true } );
-    this.gameEngine.controls.bindKey(['right', 'd'], 'right', { repeat: true } );
-    this.gameEngine.controls.bindKey('space', 'space', { repeat: false } );
-    this.gameEngine.controls.bindKey('k', 'k', { repeat: false } );
+    this.gameEngine.controls.bindKey(["up", "w"], "up", { repeat: true });
+    this.gameEngine.controls.bindKey(["down", "s"], "down", { repeat: true });
+    this.gameEngine.controls.bindKey(["left", "a"], "left", { repeat: true });
+    this.gameEngine.controls.bindKey(["right", "d"], "right", { repeat: true });
+    this.gameEngine.controls.bindKey("space", "space", { repeat: false });
+    this.gameEngine.controls.bindKey("k", "k", { repeat: false });
   }
 
   clientSideInit() {
@@ -187,9 +195,9 @@ export default class TownClientEngine extends ClientEngine {
   }
 
   sendInput(input, inputOptions) {
-    super.sendInput(input, inputOptions)
+    super.sendInput(input, inputOptions);
     if (input === "k") {
-      setShowNames()
+      setShowNames();
     }
   }
 
@@ -197,7 +205,7 @@ export default class TownClientEngine extends ClientEngine {
     let playerId = this.gameEngine.playerId;
     let myPlayer = this.gameEngine.world.queryObject({ playerId });
     let players = this.gameEngine.world.queryObjects({ instanceType: Player });
-
+    console.log("myPlayer", myPlayer);
     if (myPlayer) {
       if (myPlayer.currentMap !== this.currentMap) {
         this.currentMap = myPlayer.currentMap;
@@ -221,22 +229,24 @@ export default class TownClientEngine extends ClientEngine {
       players = players.filter((tempPlayer) => {
         return myPlayer.currentMap === tempPlayer.currentMap;
       });
-          
+
       updateSound(myPlayer);
       update(myPlayer, players);
     }
 
     if (this.videosEnabled && this.videosInitialized) {
-      let inRangePlayers = players.map(player => getPlayerDistance(myPlayer, player)).filter(obj => obj);
+      let inRangePlayers = players
+        .map((player) => getPlayerDistance(myPlayer, player))
+        .filter((obj) => obj);
       let playersObj = {};
-      inRangePlayers.forEach(obj => {
+      inRangePlayers.forEach((obj) => {
         playersObj = Object.assign(playersObj, obj);
       });
 
       let announcerPlayer = this.getAnnouncerPlayer(players);
       let playerVideoMap = {
-        "playerToDist": playersObj,
-        "announcerPlayer": (announcerPlayer !== null ? announcerPlayer + "" : null)
+        playerToDist: playersObj,
+        announcerPlayer: announcerPlayer !== null ? announcerPlayer + "" : null,
       };
       if (!deepEqual(playerVideoMap, this.playerVideoMap)) {
         this.playerVideoMap = playerVideoMap;
@@ -252,7 +262,11 @@ export default class TownClientEngine extends ClientEngine {
 
   getAnnouncerPlayer(players) {
     for (let i = 0; i < players.length; i++) {
-      if (collisionMap[players[i].currentMap][players[i].position.y][players[i].position.x] === 2) {
+      if (
+        collisionMap[players[i].currentMap][players[i].position.y][
+          players[i].position.x
+        ] === 2
+      ) {
         return players[i].playerId;
       }
     }
@@ -261,8 +275,8 @@ export default class TownClientEngine extends ClientEngine {
 
   sendPrivatePrompt(password, room) {
     this.socket.emit("sendPrivatePrompt", {
-      "password": password,
-      "room": room,
+      password: password,
+      room: room,
     });
   }
 
