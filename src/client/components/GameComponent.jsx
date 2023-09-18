@@ -446,6 +446,7 @@ export default function GameComponent(props) {
           modMessage={modMessage}
         />
       : null} */}
+
 			<div id="videos-container">{videoContainer}</div>
 			{roomClosed ? (
 				<div className="ot-gamecomponent-closed-message">

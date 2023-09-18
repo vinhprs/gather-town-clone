@@ -105,11 +105,18 @@ export default function GameSelfVideo(props) {
 
 	return (
 		<div
+			style={props.isFullScreen ? { flex: 1, height: "100%" } : {}}
 			className="vertical-container self-video-container"
 			onMouseEnter={() => setShowMenu(true)}
 			onMouseLeave={() => setShowMenu(false)}>
 			<div style={{ position: "relative" }}>
-				<video id="self-video" style={{ borderColor: color }}></video>
+				<video
+					id="self-video"
+					style={
+						props.isFullScreen
+							? { flex: 1, width: "100%", height: "100%", borderRadius: "10px" }
+							: {}
+					}></video>
 				{showMenu ? videoMenu : null}
 			</div>
 		</div>

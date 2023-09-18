@@ -4,6 +4,7 @@
 	left: 0;
 	z-index: 9999999;
 	width: 100%;
+	height: fit-content;
 	display: flex;
 	justify-content: center;
 	gap: 10px;

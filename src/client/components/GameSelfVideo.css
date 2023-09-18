@@ -22,7 +22,7 @@
 .selfvideo-stream-controls {
 	position: absolute;
 	top: 0;
-	width: 140px;
+	width: 100%;
 	margin-left: 3px;
 	border-radius: 16px;
 	height: 100%;

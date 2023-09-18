@@ -4,7 +4,7 @@ import Peer from "simple-peer";
 import { amplitudeInstance } from "../amplitude";
 import { getRoomFromPath } from "../utils";
 import { updateUserData } from "../userData";
-
+import { MdOutlineZoomOutMap, MdOutlineZoomInMap } from "react-icons/md";
 import GameVideo from "./GameVideo.jsx";
 import GameSelfVideo from "./GameSelfVideo.jsx";
 import GameScreenVideo from "./GameScreenVideo.jsx";
@@ -20,6 +20,7 @@ import { localPreferences } from "../LocalPreferences.js";
 
 export default function GameVideosContainer(props) {
 	const [isError, setIsError] = useState(false);
+	const [isFullScreen, setIsFullScreen] = useState(false);
 	const [ownVideoEnabled, setOwnVideoEnabled] = useState(true);
 	const [ownAudioEnabled, setOwnAudioEnabled] = useState(true);
 	const [streamMap, setStreamMap] = useState({});
@@ -415,6 +416,7 @@ export default function GameVideosContainer(props) {
 					setAudioEnabled={(enabled) =>
 						setOtherAudioEnabled({ ...otherAudioEnabled, [playerId]: enabled })
 					}
+					isFullScreen={isFullScreen}
 					setBlocked={(blocked) => setBlocked(blocked)}
 				/>
 				{playerId in screenStreamMap ? (
@@ -460,6 +462,7 @@ export default function GameVideosContainer(props) {
 				? getGameVideo(props.playerVideoMap["announcerPlayer"])
 				: null}
 			<GameSelfVideo
+				isFullScreen={isFullScreen}
 				myPlayer={props.myPlayerId}
 				stream={ownStreamMap[props.myPlayerId]}
 				videoEnabled={ownVideoEnabled}
@@ -474,7 +477,33 @@ export default function GameVideosContainer(props) {
 
 	return (
 		<>
-			<div id="videos" className="videos-container mobileHide">
+			<div id="zoom" onClick={() => setIsFullScreen((e) => !e)}>
+				{isFullScreen ? (
+					<MdOutlineZoomInMap size={20} color="white" />
+				) : (
+					<MdOutlineZoomOutMap size={20} color="white" />
+				)}
+			</div>
+			<div
+				style={
+					isFullScreen
+						? {
+								padding: "5%",
+								width: "calc(100vw - 200px)",
+								height: "100vh",
+								margin: 0,
+								background: "black",
+								position: "absolute",
+								display: "grid",
+								gridTemplateColumns: "repeat(auto-fit,minmax(250px, 500px))",
+								gridTemplateRows: "repeat(auto-fit,minmax(250px, 500px))",
+								top: 0,
+								left: 0,
+						  }
+						: {}
+				}
+				id="videos"
+				className="videos-container mobileHide">
 				{isError ? errorComponent : videoComponents}
 			</div>
 			<div className="videos-max-connections mobileHide">

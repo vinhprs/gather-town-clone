@@ -81,7 +81,7 @@ a:hover {
 }
 
 /* Smartphone portrait and landscape */
-@media only screen and (max-device-width: 480px) {
+/* @media only screen and (max-device-width: 480px) {
 	.mobileShow {
 		display: block;
 	}
@@ -89,4 +89,4 @@ a:hover {
 	.mobileHide {
 		display: none !important;
 	}
-}
+} */
