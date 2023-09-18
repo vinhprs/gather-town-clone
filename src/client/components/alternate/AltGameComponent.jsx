@@ -453,11 +453,7 @@ export default function AltGameComponent(props) {
 		</div>
 	);
 
-	let gameCanvas = (
-		<div style={{ position: "absolute", left: "100px", top: "0px" }}>
-			<canvas id="canvas" width="600" height="400"></canvas>
-		</div>
-	);
+	let gameCanvas = <canvas id="canvas" width="100%" height="100%"></canvas>;
 
 	let characterSelection = (
 		<div style={{ position: "absolute", left: "100px", top: "-13px" }}>
@@ -513,7 +509,7 @@ export default function AltGameComponent(props) {
 
 	let gameScreen = (
 		<>
-			{/* {header} */}
+			{header}
 			<div style={{ display: "flex", width: "1400px", height: "820px" }}>
 				<div className="alt-left-column" style={{ position: "relative" }}>
 					{gameCanvas}

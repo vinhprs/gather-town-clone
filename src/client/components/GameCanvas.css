@@ -17,9 +17,9 @@
 	border: solid 2px black;
 }
 #canvas {
-	width: 70%;
-	margin: auto;
-	max-height: 100vh;
+	width: 100%;
+	height: calc(100vh - 50px);
+	position: relative;
 	background: black;
 }
 #tutorial-text {
