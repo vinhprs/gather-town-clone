@@ -86,9 +86,9 @@ export default function GameSelfVideo(props) {
 				className="menu-horizontal-container action"
 				onClick={() => props.setVideoEnabled(!props.videoEnabled)}>
 				{!props.videoEnabled ? (
-					<MdVideocam size={30} color="#85E6C5" />
+					<MdVideocam size={24} color="#85E6C5" />
 				) : (
-					<MdVideocamOff size={30} color="#ff3049" />
+					<MdVideocamOff size={24} color="#ff3049" />
 				)}
 			</div>
 			<div

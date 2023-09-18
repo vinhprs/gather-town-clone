@@ -29,7 +29,7 @@ export default function GameComponent(props) {
 	const [playerInfoMap, setPlayerInfoMap] = useState({});
 	const [playerVideoMap, setPlayerVideoMap] = useState({});
 	const [myPlayerId, setMyPlayerId] = useState(null);
-	const [hasVideos, setHasVideos] = useState(false);
+	const [hasVideos, setHasVideos] = useState(true);
 	const [roomClosed, setRoomClosed] = useState(false);
 	const [sizeLimit, setSizeLimit] = useState(null);
 	const [modResult, setModResult] = useState({});
@@ -39,7 +39,7 @@ export default function GameComponent(props) {
 	const [videoThreshold, setVideoThreshold] = useState(VIDEO_THRESHOLD);
 	const [hasScreenshare, setHasScreenshare] = useState(false);
 
-	const [blocked, setBlocked] = useState({});
+	const [blocked, setBlocked] = useState(false);
 	const [clientInitialized, setClientInitialized] = useState(false);
 
 	const clientEngineRef = useRef(null);

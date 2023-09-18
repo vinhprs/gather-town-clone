@@ -25,7 +25,7 @@ const amplitudeAnonInstance = amplitude ? amplitude.getInstance("anon") : {
 
 if (!isServer()) {
   let amplitudeConfig = {
-    domain: "BLANK",
+    domain: "abc",
     eventUploadPeriodMillis: 3000,
     trackingOptions: {
       city: false,

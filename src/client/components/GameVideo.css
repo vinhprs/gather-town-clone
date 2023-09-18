@@ -1,42 +1,54 @@
 .video-container {
-  position: relative;
+	position: relative;
 }
 
 .name-video-container {
-  max-width: 140px;
-  white-space: nowrap;
-  overflow: hidden;
-  margin-top: 2px;
+	max-width: 140px;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-top: 2px;
+	color: white;
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2px;
 }
 
 video {
-  width: 140px;
-  padding: 0px;
-  border-radius: 16px;
-  margin: 0px 3px;
-  border-style: solid;
-  border-width: 3px;
+	width: 140px;
+	padding: 0px;
+	border-radius: 16px;
+	margin: 0px 3px;
+	border-style: solid;
+	border-width: 0;
 }
 
 .video-menu-container {
-  position: absolute;
-  bottom: 26px;
-  left: 3px;
-  width: 150;
+	position: absolute;
+	bottom: 26px;
+	left: 3px;
+	width: 150;
 }
 
 .video-menu-icon-container {
-  position: absolute;
-  bottom: 5px;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+	position: absolute;
+	bottom: 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
 }
 
 .video-menu-icon {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  width: 30px;
-  height: 30px;
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	width: 30px;
+	height: 30px;
+}
+.selfvideo-stream-control {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
 }

@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdVideocam, MdVideocamOff } from "react-icons/md";
-import { hexToRGB } from "../utils";
+
 import { colors } from "../constants";
 
 import ModContext from "./ModContext.jsx";
 
+import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
+import { GoDotFill } from "react-icons/go";
+import { TbLockOpenOff, TbLockOpen } from "react-icons/tb";
 import "./GameVideo.css";
 import "./GameVideoMenu.css";
-import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
 
 function distToOpacity(distance) {
 	let opacities = [1, 1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0, 0, 0, 0, 0];
@@ -53,7 +55,6 @@ export default function GameVideo(props) {
 					props.distance
 				);
 			}
-			s;
 			if (distToVolume(props.distance) !== undefined) {
 				video.volume = distToVolume(props.distance);
 			}
@@ -70,7 +71,7 @@ export default function GameVideo(props) {
 	}, [props.distance]);
 
 	function toggleVideoEnabled() {
-		props.setVideoEnabled(!props.videoEnabled);
+		props.setVideoEnabled(!props?.videoEnabled);
 	}
 
 	function toggleAudioEnabled() {
@@ -84,54 +85,33 @@ export default function GameVideo(props) {
 	let color = colors[parseInt(props.id) % colors.length];
 
 	let videoMenu = (
-		<div
-			className="selfvideo-stream-controls"
-			style={{ backgroundColor: hexToRGB(color, 0.8) }}>
+		<div className="selfvideo-stream-controls">
 			<div
 				className="menu-horizontal-container action"
 				onClick={() => toggleVideoEnabled()}>
-				{props.videoEnabled ? (
-					<i key="enable">
-						<span className="fas fa-video menu-video-icon" />
-					</i>
+				{!props.videoEnabled ? (
+					<MdVideocam size={24} color="#85E6C5" />
 				) : (
-					<i key="disable">
-						<span className="fas fa-video-slash menu-disable-video-icon" />
-					</i>
+					<MdVideocamOff size={24} color="#ff3049" />
 				)}
-				<div>
-					{!props.videoEnabled ? (
-						<MdVideocam size={30} color="#85E6C5" />
-					) : (
-						<MdVideocamOff size={30} color="#ff3049" />
-					)}
-				</div>
 			</div>
 			<div
 				className="menu-horizontal-container action"
 				onClick={() => toggleAudioEnabled()}>
 				{props.audioEnabled ? (
-					<i key="enable">
-						<span className="fas fa-microphone menu-mic-icon" />
-					</i>
+					<BsFillMicMuteFill size={20} color="#ff3049" />
 				) : (
-					<i key="disable">
-						<span className="fas fa-microphone-slash menu-disable-mic-icon" />
-					</i>
+					<BsMicFill size={20} color="#85E6C5" />
 				)}
-				<div>
-					{props.audioEnabled ? (
-						<BsFillMicMuteFill size={20} color="#ff3049" />
-					) : (
-						<BsMicFill size={20} color="#85E6C5" />
-					)}
-				</div>
 			</div>
 			<div
 				className="menu-horizontal-container action"
 				onClick={() => toggleBlocked()}>
-				<i className="fas fa-ban menu-ban-icon" />
-				<div>{props.blocked ? "Unblock" : "Block"}</div>
+				{props.blocked ? (
+					<TbLockOpenOff size={20} color="#ff3049" />
+				) : (
+					<TbLockOpen size={20} color="#85E6C5" />
+				)}
 			</div>
 		</div>
 	);
@@ -156,8 +136,9 @@ export default function GameVideo(props) {
 				<video id={"video-" + props.id} style={{ borderColor: color }}></video>
 				{showMenu ? videoMenu : null}
 			</div>
-			<div className="name-video-container" style={{ color: color }}>
-				{displayName}
+			<div className="name-video-container">
+				<GoDotFill size={20} color="#85E6C5" />
+				<p>{displayName}</p>
 			</div>
 		</div>
 	);
