@@ -67,6 +67,7 @@ const EnterPrivateText = ({ onYes }) => {
               className="btn btn-accent bg-[#06D6A0] w-full mt-6"
               onClick={() => {
                 const text = inputRef.current.value;
+                if (text === "") return;
                 setCharacterUsername(text);
                 updateRoomData(getRoomFromPath(), { name: text });
                 onYes();
