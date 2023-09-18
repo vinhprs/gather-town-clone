@@ -18,6 +18,7 @@ import "./PrivateRoom.css";
 import { useCharacter } from "../context/CharacterContext.js";
 import { characterMap } from "../../common/maps.js";
 import LayoutInGame from "../layouts/LayoutInGame.jsx";
+import { updateRoomData } from "../userData.js";
 
 const EnterPrivateText = ({ onYes }) => {
   const { setCharacterUsername } = useCharacter();
@@ -67,6 +68,7 @@ const EnterPrivateText = ({ onYes }) => {
               onClick={() => {
                 const text = inputRef.current.value;
                 setCharacterUsername(text);
+                updateRoomData(getRoomFromPath(), { name: text });
                 onYes();
               }}>
               Join
