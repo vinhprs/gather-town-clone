@@ -21,7 +21,7 @@ const LayoutInGame = ({ children }) => {
     <div className="main-game-container">
       <div className="top-layout">
         <div className="game-body">{children}</div>
-        <div className="bar-container">
+        {/* <div className="bar-container">
           <h1>E6 1 U7 BIRTHDAY BASEBALL</h1>
           <div className="input-search">
             <div style={{ width: "20px", height: "20px" }}>
@@ -29,7 +29,7 @@ const LayoutInGame = ({ children }) => {
             </div>
             <input type="text" />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="control-container">
         <div className="v-flex gap-4">

@@ -173,15 +173,15 @@
 }
 
 /* bar-container */
-.bar-container .input-search:hover {
+.input-search:hover {
   border: 2px solid rgb(123, 129, 165);
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
 
-.bar-container .input-search {
+.input-search {
   width: 100%;
   margin-top: 20px;
-  padding: 10px 20px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -190,7 +190,7 @@
   gap: 4px;
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
-.bar-container .input-search input {
+.input-search input {
   flex: 1;
   width: 100%;
   padding: 0px 10px;
@@ -208,7 +208,7 @@
 }
 .bar-container {
   z-index: 999;
-  position: relative;
+  position: a;
   bottom: 0;
   right: 0;
   width: 300px;

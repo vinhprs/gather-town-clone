@@ -12,6 +12,7 @@ import { characterMap } from "../common/maps";
 import { getPlayerDistance } from "../common/utils";
 
 export default class TownServerEngine extends ServerEngine {
+  userCharacter = [];
   assignPlayerToRoom(playerId, roomName) {
     super.assignPlayerToRoom(playerId, roomName);
     this.playerToRoom[playerId] = roomName;
@@ -60,6 +61,10 @@ export default class TownServerEngine extends ServerEngine {
     } else {
       newPlayer.characterId = 1;
     }
+    this.userCharacter.unshift({
+      userId: newPlayer.playerId,
+      characterId: newPlayer.characterId,
+    });
     newPlayer.playerId = playerId;
     this.assignObjectToRoom(newPlayer, room);
     this.gameEngine.addObjectToWorld(newPlayer);
@@ -69,12 +74,17 @@ export default class TownServerEngine extends ServerEngine {
     if (!playerId) {
       return;
     }
+
     let myPlayer = this.gameEngine.world.queryObject({ playerId });
     if (!myPlayer) {
       return;
     }
     if (characterMap[myPlayer.currentMap].includes(characterId)) {
       myPlayer.characterId = characterId;
+      this.userCharacter.unshift({
+        userId: myPlayer.playerId,
+        characterId: characterId,
+      });
     }
   }
 
@@ -315,6 +325,9 @@ export default class TownServerEngine extends ServerEngine {
 
     socket.on("chatMessage", (message, blockedMap) => {
       let playerId = socket.playerId;
+      const characterId = this.userCharacter.find(
+        (e) => e.userId == playerId
+      )?.characterId;
       let myPlayer = this.gameEngine.world.queryObject({ playerId });
       let players = this.gameEngine.world.queryObjects({
         instanceType: Player,
@@ -348,6 +361,7 @@ export default class TownServerEngine extends ServerEngine {
           this.playerToSocket[id].emit("serverChatMessage", {
             id: playerId + "",
             message: message,
+            characterId,
           });
         }
       });

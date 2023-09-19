@@ -11,107 +11,116 @@ import { updateUserData } from "../userData.js";
 import { useCharacter } from "../context/CharacterContext.js";
 
 export default function GameCanvas(props) {
-	const {
-		characterData: { id: selectedCharacterId },
-	} = useCharacter();
+  const {
+    characterData: { id: selectedCharacterId },
+  } = useCharacter();
 
-	useEffect(() => {
-		if (props.characterId && selectedCharacterId) {
-			console.log("props.characterId", props.characterId);
-			console.log("selectedCharacterId", selectedCharacterId);
-			props.setCharacterId(selectedCharacterId);
-		}
-	}, [selectedCharacterId, props.characterId]);
+  useEffect(() => {
+    if (props.characterId && selectedCharacterId) {
+      console.log("props.characterId", props.characterId);
+      console.log("selectedCharacterId", selectedCharacterId);
+      props.setCharacterId(selectedCharacterId);
+    }
+  }, [selectedCharacterId, props.characterId]);
 
-	const [showTutorial, setShowTutorial] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
 
-	useEffect(() => {
-		let userData = localPreferences.get("user");
-		if (userData && !userData["seenTutorial"]) {
-			setShowTutorial(true);
-		}
-	}, []);
+  useEffect(() => {
+    let userData = localPreferences.get("user");
+    if (userData && !userData["seenTutorial"]) {
+      setShowTutorial(true);
+    }
+  }, []);
 
-	function seenTutorial() {
-		setShowTutorial(false);
-		updateUserData({ seenTutorial: true });
-	}
+  function seenTutorial() {
+    setShowTutorial(false);
+    updateUserData({ seenTutorial: true });
+  }
 
-	let linkContainer = <div className="ot-link-container"></div>;
-	if (props.hasLinks) {
-		linkContainer = (
-			<div className="ot-link-container">
-				<p>
-					<a href={props.url1}>{props.name1}</a>
-				</p>
-				<p>
-					<a href={props.url2}>{props.name2}</a>
-				</p>
-			</div>
-		);
-	}
+  let linkContainer = <div className="ot-link-container"></div>;
+  if (props.hasLinks) {
+    linkContainer = (
+      <div className="ot-link-container">
+        <p>
+          <a href={props.url1}>{props.name1}</a>
+        </p>
+        <p>
+          <a href={props.url2}>{props.name2}</a>
+        </p>
+      </div>
+    );
+  }
 
-	return (
-		<div style={{ position: "relative" }} className="game-container">
-			{linkContainer}
-			{/* <CameraStream /> */}
-			<div className="relative w-[1024px] h-[900px] border-2 m-auto">
-				<CameraStream />
-				{Object.keys(props.playerInfoMap).map((key) => (
-					<div
-						key={key}
-						className="map-name-container"
-						id={"map-name-container-" + key}></div>
-				))}
-				<canvas
-					id="canvas"
-					width="1024"
-					height="900"
-					style={{ position: "relative", zIndex: 9999 }}></canvas>
-			</div>
+  return (
+    <div style={{ position: "relative" }} className="game-container">
+      {linkContainer}
+      {props.inGame && (
+        <GameChat
+          sendChatMessage={props.sendChatMessage}
+          chatMessages={props.chatMessages}
+          playerInfoMap={props.playerInfoMap}
+          hasLinks={props.hasLinks}
+        />
+      )}
+      {/* <CameraStream /> */}
+      <div className="relative w-[1024px] h-[900px] border-2 m-auto">
+        <CameraStream />
+        {Object.keys(props.playerInfoMap).map((key) => (
+          <div
+            key={key}
+            className="map-name-container"
+            id={"map-name-container-" + key}></div>
+        ))}
+        <canvas
+          id="canvas"
+          width="1024"
+          height="900"
+          style={{ position: "relative", zIndex: 9999 }}></canvas>
+      </div>
 
-			{props.inGame ? (
-				<>
-					<GameChat
-						sendChatMessage={props.sendChatMessage}
-						chatMessages={props.chatMessages}
-						playerInfoMap={props.playerInfoMap}
-						hasLinks={props.hasLinks}
-					/>
-					<GameNamesContainer
-						playerInfoMap={props.playerInfoMap}
-						playerVideoMap={props.playerVideoMap}
-						profPics={props.profPics}
-					/>
-					<GameChangeCharacter
-						setCharacterId={props.setCharacterId}
-						characterId={props.characterId}
-						currentMap={props.currentMap}
-					/>
-				</>
-			) : null}
+      {props.inGame ? (
+        <>
+          <GameChat
+            sendChatMessage={props.sendChatMessage}
+            chatMessages={props.chatMessages}
+            playerInfoMap={props.playerInfoMap}
+            hasLinks={props.hasLinks}
+            characterId={props.characterId}
+          />
+          {/* <GameNamesContainer
+            playerInfoMap={props.playerInfoMap}
+            playerVideoMap={props.playerVideoMap}
+            profPics={props.profPics}
+          />
+          <GameChangeCharacter
+            setCharacterId={props.setCharacterId}
+            characterId={props.characterId}
+            currentMap={props.currentMap}
+          /> */}
+        </>
+      ) : null}
 
-			<div id="blocked-text" hidden>
-				We detect you've been blocked. Press spacebar, if you'd like to teleport
-				out.
-			</div>
-			{showTutorial && props.inGame ? (
-				<div id="tutorial-text">
-					{/* <div>
+      <div id="blocked-text" hidden>
+        We detect you've been blocked. Press spacebar, if you'd like to teleport
+        out.
+      </div>
+      {showTutorial && props.inGame ? (
+        <div id="tutorial-text">
+          {/* <div>
               1) Use your arrow keys to move around <br />
               2) You only see and hear people when you move next to them (and if you can't check if your webcam is connected) <br />
               3) You can block users by hovering your mouse over their video
             </div> */}
-					<div
-						onClick={() => {
-							seenTutorial();
-						}}>
-						<i
-							className="fas fa-times selection-icon-fas red"
-							style={{ position: "absolute", top: "10px", right: "10px" }}></i>
-					</div>
-				</div>
-			) : null}
-		</div>
-	);
+          <div
+            onClick={() => {
+              seenTutorial();
+            }}>
+            <i
+              className="fas fa-times selection-icon-fas red"
+              style={{ position: "absolute", top: "10px", right: "10px" }}></i>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
 }
