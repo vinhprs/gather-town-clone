@@ -1,5 +1,5 @@
 import React from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { ToastBar, Toaster, useToasterStore } from "react-hot-toast";
 import { BiLogoAirbnb } from "react-icons/bi";
 import {
 	BsFillEmojiSmileFill,
@@ -13,10 +13,42 @@ import { PiChalkboardTeacherBold, PiClipboardTextFill } from "react-icons/pi";
 import { SlScreenDesktop } from "react-icons/sl";
 import EditUserName from "../components/EditUserName.jsx";
 import "./LayoutInGame.css";
+import { useEffect } from "react";
 const LayoutInGame = ({ children, ...props }) => {
+	const store = useToasterStore();
+	useEffect(() => {
+		store?.toasts
+			?.filter((t) => t.visible) // Only consider visible toasts
+			?.filter((_, i) => i >= 1) // Is toast index over limit?
+			?.forEach((t) => toast?.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) for no exit animation
+	}, [store?.toasts]);
 	return (
 		<div className="main-game-container">
-			<Toaster />
+			<Toaster
+				containerClassName="toast"
+				toastOptions={{
+					style: {
+						maxWidth: "unset",
+					},
+					duration: 3000,
+				}}>
+				{(t) => (
+					<ToastBar toast={t}>
+						{({ icon, message }) => {
+							return (
+								<>
+									{icon}
+									<div
+										dangerouslySetInnerHTML={{
+											__html: message?.props?.children || "",
+										}}
+									/>
+								</>
+							);
+						}}
+					</ToastBar>
+				)}
+			</Toaster>
 			<div className="top-layout">
 				<div className="game-body">{children}</div>
 				{/* <div className="bar-container">
