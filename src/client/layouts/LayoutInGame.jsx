@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import { BiLogoAirbnb } from "react-icons/bi";
 import {
 	BsFillEmojiSmileFill,
@@ -15,6 +16,7 @@ import "./LayoutInGame.css";
 const LayoutInGame = ({ children, ...props }) => {
 	return (
 		<div className="main-game-container">
+			<Toaster />
 			<div className="top-layout">
 				<div className="game-body">{children}</div>
 				{/* <div className="bar-container">

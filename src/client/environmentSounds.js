@@ -28,6 +28,9 @@ export function updateSound(myPlayer) {
   if (backgroundAudios) {
     backgroundAudios.forEach(bgAudio => {
       let dist = getDistance(myPlayer, bgAudio.pos[1], bgAudio.pos[0]);
+      if (dist === 0) {
+        toast('Here is your toast.')
+      }
       let audioEl = document.getElementById("audio-" + bgAudio.id);
       if (Math.ceil(dist) < bgAudio.volume.length) {
         if (audioEl) {
