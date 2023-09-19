@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import classNames from "classnames";
-
-import { getRoomFromPath, hexToRGB } from "../utils";
-import { localPreferences } from "../LocalPreferences";
-import { updateRoomData } from "../userData";
+import React, { useEffect, useState } from "react";
+import { GoDotFill } from "react-icons/go";
+import { localPreferences } from '../LocalPreferences';
 import { colors } from "../constants";
+import { updateRoomData } from "../userData";
+import { getRoomFromPath } from '../utils';
 
-import "./GameSelfVideo.css";
-import "./GameVideoMenu.css";
 import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
 import { MdVideocam, MdVideocamOff } from "react-icons/md";
+import "./GameSelfVideo.css";
+import "./GameVideoMenu.css";
 
 export default function GameSelfVideo(props) {
 	const [nameValue, setNameValue] = useState("");
@@ -103,6 +102,11 @@ export default function GameSelfVideo(props) {
 		</div>
 	);
 
+
+	let roomsData = localPreferences.get("rooms");
+	let initUsername = roomsData[getRoomFromPath()]?.name;
+
+	let displayName = initUsername;
 	return (
 		<div
 			style={props.isFullScreen ? { flex: 1, height: "100%" } : {}}
@@ -118,6 +122,10 @@ export default function GameSelfVideo(props) {
 							: {}
 					}></video>
 				{showMenu ? videoMenu : null}
+			</div>
+			<div className="name-video-container">
+				<GoDotFill size={20} color="#85E6C5" />
+				<p>{displayName}</p>
 			</div>
 		</div>
 	);

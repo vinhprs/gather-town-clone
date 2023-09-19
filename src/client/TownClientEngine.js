@@ -89,7 +89,6 @@ export default class TownClientEngine extends ClientEngine {
 
       this.socket.on("serverPlayerInfo", (data) => {
         if ("firstUpdate" in data) {
-          console.log("firstupdate");
           let id = localPreferences.get("user")["id"];
           let firstUpdate = localPreferences.get("rooms")[getRoomFromPath()];
           this.sendPlayerInfo(Object.assign(firstUpdate, { publicId: id }));
@@ -205,7 +204,7 @@ export default class TownClientEngine extends ClientEngine {
     let playerId = this.gameEngine.playerId;
     let myPlayer = this.gameEngine.world.queryObject({ playerId });
     let players = this.gameEngine.world.queryObjects({ instanceType: Player });
-    console.log("myPlayer", myPlayer);
+    console.error("myPlayer", players);
     if (myPlayer) {
       if (myPlayer.currentMap !== this.currentMap) {
         this.currentMap = myPlayer.currentMap;
