@@ -165,10 +165,6 @@ function draw(x, y, map, players) {
   //   "map-name-container-" + player.playerId
   // );
 
-  console.log("players", players);
-  console.log("players", players);
-  const playerRefList = {};
-
   players.forEach((item) => {
     playerRefList[item.playerId] = document.getElementById(
       "map-name-container-" + item.playerId
@@ -181,8 +177,6 @@ function draw(x, y, map, players) {
 
   console.log("players", players);
   players.forEach((player) => {
-    const refPlayer = playerRefList[player.playerId];
-    console.log("refPlayer", refPlayer);
     const refPlayer = playerRefList[player.playerId];
     console.log("refPlayer", refPlayer);
     let direction = directionCoors[player.currentDirection];

@@ -109,6 +109,7 @@
   border-right: 1px solid rgb(156, 156, 156);
 }
 .user-container .name {
+  position: relative;
   background: #333a64;
   border-radius: 4px;
   display: flex;
@@ -131,7 +132,7 @@
   font-size: 12px;
   cursor: pointer;
 }
-.user-container .edit:hover {
+.user-container .name:hover {
   background: #5a65a5;
 }
 .control-container {

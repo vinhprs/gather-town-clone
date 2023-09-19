@@ -7,17 +7,16 @@ import {
 } from "react-icons/bs";
 import { IoIosChatbubbles } from "react-icons/io";
 import { LiaHandPaper } from "react-icons/lia";
-import {
-  MdKeyboardArrowUp,
-  MdModeEditOutline,
-  MdVideocamOff,
-} from "react-icons/md";
+import { MdKeyboardArrowUp, MdVideocamOff } from "react-icons/md";
 import { PiChalkboardTeacherBold, PiClipboardTextFill } from "react-icons/pi";
-import { RxAvatar } from "react-icons/rx";
 import { SlScreenDesktop } from "react-icons/sl";
+import EditUserName from "../components/EditUserName.jsx";
+import { useCharacter } from "../context/CharacterContext";
 import "./LayoutInGame.css";
-import GameChangeCharacterUpdate from "../components/GameChangeCharacterUpdate.jsx";
 const LayoutInGame = ({ children }) => {
+  const {
+    characterData: { id: selectedId },
+  } = useCharacter();
   return (
     <div className="main-game-container">
       <div className="top-layout">
@@ -37,18 +36,7 @@ const LayoutInGame = ({ children }) => {
           <div className="logo">
             <BiLogoAirbnb size={20} color="white" />
           </div>
-          <div className="user-container">
-            <div className="avatar">
-              <RxAvatar size={20} color="white" />
-            </div>
-            <div className="name">
-              <p>Huy</p>
-              <p>Available</p>
-            </div>
-            <div className="edit">
-              <MdModeEditOutline size={14} color="white" />
-            </div>
-          </div>
+          <EditUserName />
           <div className="control">
             <BsFillMicMuteFill size={20} color="#ff3049" />
             <div className="arrow">
