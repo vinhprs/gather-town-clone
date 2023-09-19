@@ -427,7 +427,10 @@ export default function GameComponent(props) {
 		videoContainer = (
 			<GameVideosContainer
 				myPlayerId={myPlayerId}
-				ref={props?.refVideo}
+				setOwnVideoEnabled={props?.setOwnVideoEnabled}
+				setOwnAudioEnabled={props?.setOwnAudioEnabled}
+				ownVideoEnabled={props?.ownVideoEnabled}
+				ownAudioEnabled={props?.ownAudioEnabled}
 				playerInfoMap={playerInfoMap}
 				playerVideoMap={shallowCloneMap}
 				ownImage={ownImage}

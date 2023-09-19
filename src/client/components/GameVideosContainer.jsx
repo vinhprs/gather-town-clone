@@ -36,24 +36,21 @@ const GameVideosContainer = React.forwardRef((props, ref) => {
 	const imageRef = useRef(null);
 	const screenStreamRef = useRef(null);
 
-	useImperativeHandle(
-		ref,
-		() => {
-			return {
-				toggleVideoEnabled() {
-					console.log("run");
-					setOwnAudioEnabled((curr) => !curr);
-					return !ownVideoEnabled;
-				},
-				toggleAudioEnabled() {
-					console.log("run");
-					setOwnAudioEnabled((curr) => !curr);
-					return !ownAudioEnabled;
-				},
-			};
-		},
-		[]
-	);
+	useEffect(() => {
+		props?.setOwnVideoEnabled(ownVideoEnabled);
+	}, [ownVideoEnabled]);
+
+	useEffect(() => {
+		setOwnVideoEnabled(props?.ownVideoEnabled);
+	}, [props?.ownVideoEnabled]);
+
+	useEffect(() => {
+		props?.setOwnAudioEnabled(ownAudioEnabled);
+	}, [ownAudioEnabled]);
+
+	useEffect(() => {
+		setOwnAudioEnabled(ownAudioEnabled);
+	}, [props?.ownAudioEnabled]);
 
 	useEffect(() => {
 		// IT IS VERY IMPORTANT THAT IF YOU CHANGE THIS YOU KNOW WHAT YOU'RE DOING

@@ -130,13 +130,14 @@ export default function PrivateRoom() {
 	const [password, setPassword] = useState();
 	const [showHeader, setShowHeader] = useState(true);
 	const [hasAlternateLayout, setHasAlternateLayout] = useState(false);
+	const [ownVideoEnabled, setOwnVideoEnabled] = useState(true);
+	const [ownAudioEnabled, setOwnAudioEnabled] = useState(true);
 
 	const [hasLinks, setHasLinks] = useState(false);
 	const [url1, setURL1] = useState();
 	const [url2, setURL2] = useState();
 	const [name1, setName1] = useState();
 	const [name2, setName2] = useState();
-	const refVideo = useRef();
 	useEffect(() => {
 		axios
 			.get(window.location.origin + "/api/hasPassword", {
@@ -214,7 +215,6 @@ export default function PrivateRoom() {
 						{hasAlternateLayout ? (
 							<AltGameComponent
 								inGame={true}
-								refVideo={refVideo}
 								isPrivate={true}
 								password={password}
 								setHasAlternateLayout={setHasAlternateLayout}
@@ -222,10 +222,17 @@ export default function PrivateRoom() {
 						) : (
 							<>
 								{/* {showHeader ? <GameHeader /> : <div> </div>} */}
-								<LayoutInGame refVideo={refVideo}>
+								<LayoutInGame
+									ownVideoEnabled={ownVideoEnabled}
+									ownAudioEnabled={ownAudioEnabled}
+									setOwnVideoEnabled={setOwnVideoEnabled}
+									setOwnAudioEnabled={setOwnAudioEnabled}>
 									<GameComponent
 										inGame={true}
-										refVideo={refVideo}
+										ownVideoEnabled={ownVideoEnabled}
+										ownAudioEnabled={ownAudioEnabled}
+										setOwnVideoEnabled={setOwnVideoEnabled}
+										setOwnAudioEnabled={setOwnAudioEnabled}
 										isPrivate={true}
 										password={password}
 										setHasAlternateLayout={setHasAlternateLayout}

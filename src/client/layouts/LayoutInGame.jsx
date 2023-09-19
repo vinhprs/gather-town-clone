@@ -50,7 +50,7 @@ const LayoutInGame = ({ children, ...props }) => {
 					</div>
 					<div className="control">
 						<BsFillMicMuteFill
-							onClick={() => props?.refVideo?.current?.toggleAudioEnabled()}
+							onClick={() => props?.setOwnAudioEnabled((e) => !e)}
 							size={20}
 							color="#ff3049"
 						/>
@@ -60,7 +60,7 @@ const LayoutInGame = ({ children, ...props }) => {
 					</div>
 					<div className="control">
 						<MdVideocamOff
-							onClick={() => props?.refVideo?.current?.toggleVideoEnabled()}
+							onClick={() => props?.setOwnVideoEnabled((e) => !e)}
 							size={30}
 							color="#ff3049"
 						/>
