@@ -54,14 +54,14 @@ export default function GameCanvas(props) {
   return (
     <div style={{ position: "relative" }} className="game-container">
       {linkContainer}
-      {props.inGame && (
+      {/* {props.inGame && (
         <GameChat
           sendChatMessage={props.sendChatMessage}
           chatMessages={props.chatMessages}
           playerInfoMap={props.playerInfoMap}
           hasLinks={props.hasLinks}
         />
-      )}
+      )} */}
       {/* <CameraStream /> */}
       <div className="relative w-[1024px] h-[900px] border-2 m-auto">
         <CameraStream />
@@ -75,7 +75,7 @@ export default function GameCanvas(props) {
           id="canvas"
           width="1024"
           height="900"
-          style={{ position: "relative", zIndex: 9999 }}></canvas>
+          style={{ position: "relative", zIndex: 9999, marginTop: "20px" }}></canvas>
       </div>
 
       {props.inGame ? (

@@ -92,7 +92,7 @@ const EditUserName = () => {
                 onChange={onChangeInput}
                 type="text"
                 placeholder="Username"
-                className="input input-bordered w-full w-full !text-gray-700"
+                className="input input-bordered w-full w-full !text-white"
               />
               <form method="dialog">
                 <button
