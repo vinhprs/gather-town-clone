@@ -16,7 +16,7 @@ import { PiChalkboardTeacherBold, PiClipboardTextFill } from "react-icons/pi";
 import { RxAvatar } from "react-icons/rx";
 import { SlScreenDesktop } from "react-icons/sl";
 import "./LayoutInGame.css";
-const LayoutInGame = ({ children }) => {
+const LayoutInGame = ({ children, ...props }) => {
 	return (
 		<div className="main-game-container">
 			<div className="top-layout">
@@ -33,7 +33,7 @@ const LayoutInGame = ({ children }) => {
 			</div>
 			<div className="control-container">
 				<div className="v-flex gap-4">
-					<div className="logo">
+					<div className="logo" onClick={() => console.error(props?.refVideo)}>
 						<BiLogoAirbnb size={20} color="white" />
 					</div>
 					<div className="user-container">
@@ -49,13 +49,21 @@ const LayoutInGame = ({ children }) => {
 						</div>
 					</div>
 					<div className="control">
-						<BsFillMicMuteFill size={20} color="#ff3049" />
+						<BsFillMicMuteFill
+							onClick={() => props?.refVideo?.current?.toggleAudioEnabled()}
+							size={20}
+							color="#ff3049"
+						/>
 						<div className="arrow">
 							<MdKeyboardArrowUp size={14} color="#ff3049" />
 						</div>
 					</div>
 					<div className="control">
-						<MdVideocamOff size={30} color="#ff3049" />
+						<MdVideocamOff
+							onClick={() => props?.refVideo?.current?.toggleVideoEnabled()}
+							size={30}
+							color="#ff3049"
+						/>
 						<div className="arrow">
 							<MdKeyboardArrowUp size={14} color="#ff3049" />
 						</div>

@@ -7,7 +7,7 @@ import ModContext from "./ModContext.jsx";
 
 import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
-import { TbLockOpenOff, TbLockOpen } from "react-icons/tb";
+import { TbLockOpen, TbLockOpenOff } from "react-icons/tb";
 import "./GameVideo.css";
 import "./GameVideoMenu.css";
 

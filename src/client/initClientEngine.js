@@ -42,14 +42,14 @@ export default async function initClientEngine() {
       return null;
     }
     if (response.data) {
-      console.log(response.data);
+      // console.log(response.data);
       defaults["serverURL"] = response.data;
     } else {
       console.log("connecting to default localhost");
     }
     let options = Object.assign(defaults, qsOptions);
     let gameEngine = new Game(options);
-    console.log("options", options);
+    // console.log("options", options);
     let clientEngine = new TownClientEngine(gameEngine, options, Renderer);
     return clientEngine;
   } else {

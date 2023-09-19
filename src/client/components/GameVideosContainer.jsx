@@ -17,8 +17,9 @@ let PROD_ENDPOINT = `BLANK`;
 let MAX_VIDEOS_DEFAULT = 10000;
 
 import { localPreferences } from "../LocalPreferences.js";
+import { useImperativeHandle } from "react";
 
-export default function GameVideosContainer(props) {
+const GameVideosContainer = React.forwardRef((props, ref) => {
 	const [isError, setIsError] = useState(false);
 	const [isFullScreen, setIsFullScreen] = useState(false);
 	const [ownVideoEnabled, setOwnVideoEnabled] = useState(true);
@@ -34,6 +35,25 @@ export default function GameVideosContainer(props) {
 	const peers = useRef({});
 	const imageRef = useRef(null);
 	const screenStreamRef = useRef(null);
+
+	useImperativeHandle(
+		ref,
+		() => {
+			return {
+				toggleVideoEnabled() {
+					console.log("run");
+					setOwnAudioEnabled((curr) => !curr);
+					return !ownVideoEnabled;
+				},
+				toggleAudioEnabled() {
+					console.log("run");
+					setOwnAudioEnabled((curr) => !curr);
+					return !ownAudioEnabled;
+				},
+			};
+		},
+		[]
+	);
 
 	useEffect(() => {
 		// IT IS VERY IMPORTANT THAT IF YOU CHANGE THIS YOU KNOW WHAT YOU'RE DOING
@@ -526,4 +546,5 @@ export default function GameVideosContainer(props) {
 			</div>
 		</>
 	);
-}
+});
+export default GameVideosContainer;

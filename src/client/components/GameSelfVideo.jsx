@@ -31,6 +31,13 @@ export default function GameSelfVideo(props) {
 		}
 	}, [props.myPlayer]);
 
+	function vidOff() {
+		let video = document.getElementById("self-video");
+		video.pause();
+		video.src = "";
+		video.stop();
+	}
+
 	useEffect(() => {
 		let video = document.getElementById("self-video");
 		if ("srcObject" in video) {

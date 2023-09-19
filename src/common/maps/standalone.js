@@ -2210,7 +2210,7 @@ export var audioMap = {
       id: "fireplace",
       path: "/sounds/fireplace.wav",
       volume: [1.0, 1.0, 0.8, 0.5, 0.2],
-      pos: [31, 12],
+      pos: [3, 12],
     },
   ],
   215: [
@@ -2242,7 +2242,7 @@ export var animMap = {
         (_, i) =>
           "/images/maps/shared/fireplace_animation/fireplace" + (i + 1) + ".png"
       ),
-      pos: [30, 12],
+      pos: [2, 12],
       frameGap: 5,
     },
   ],

@@ -205,7 +205,7 @@ export default class TownClientEngine extends ClientEngine {
     let playerId = this.gameEngine.playerId;
     let myPlayer = this.gameEngine.world.queryObject({ playerId });
     let players = this.gameEngine.world.queryObjects({ instanceType: Player });
-    console.log("myPlayer", myPlayer);
+    // console.log("myPlayer", myPlayer);
     if (myPlayer) {
       if (myPlayer.currentMap !== this.currentMap) {
         this.currentMap = myPlayer.currentMap;
@@ -264,7 +264,7 @@ export default class TownClientEngine extends ClientEngine {
     for (let i = 0; i < players.length; i++) {
       if (
         collisionMap[players[i].currentMap][players[i].position.y][
-          players[i].position.x
+        players[i].position.x
         ] === 2
       ) {
         return players[i].playerId;
