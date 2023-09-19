@@ -70,7 +70,8 @@
 	width: 60px;
 	height: 40px;
 	border-radius: 100rem;
-	background: #ff304933;
+	/* background: #ff304933; */
+	/* background: #30ffe733; */
 }
 .control .arrow {
 	border-left: 1px solid rgba(255, 145, 158, 0.623);

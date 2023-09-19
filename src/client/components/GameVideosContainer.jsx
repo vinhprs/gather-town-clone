@@ -49,7 +49,7 @@ const GameVideosContainer = React.forwardRef((props, ref) => {
 	}, [ownAudioEnabled]);
 
 	useEffect(() => {
-		setOwnAudioEnabled(ownAudioEnabled);
+		setOwnAudioEnabled(props?.ownAudioEnabled);
 	}, [props?.ownAudioEnabled]);
 
 	useEffect(() => {
