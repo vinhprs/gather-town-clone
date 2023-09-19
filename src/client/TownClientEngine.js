@@ -89,7 +89,6 @@ export default class TownClientEngine extends ClientEngine {
 
       this.socket.on("serverPlayerInfo", (data) => {
         if ("firstUpdate" in data) {
-          console.log("firstupdate");
           let id = localPreferences.get("user")["id"];
           let firstUpdate = localPreferences.get("rooms")[getRoomFromPath()];
           this.sendPlayerInfo(Object.assign(firstUpdate, { publicId: id }));

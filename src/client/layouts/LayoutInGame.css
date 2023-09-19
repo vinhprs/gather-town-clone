@@ -210,7 +210,7 @@
 }
 .bar-container {
 	z-index: 999;
-	position: a;
+	position: fixed;
 	bottom: 0;
 	right: 0;
 	width: 300px;

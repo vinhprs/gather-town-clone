@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdVideocam, MdVideocamOff } from "react-icons/md";
-
 import { colors } from "../constants";
-
 import ModContext from "./ModContext.jsx";
 
 import { BsFillMicMuteFill, BsMicFill } from "react-icons/bs";
@@ -124,8 +122,8 @@ export default function GameVideo(props) {
 			? props.playerInfo["publicId"]
 			: "";
 
-	let displayName = name;
 	if (modPasswordCorrect) displayName = name + "#" + id.substr(0, 6);
+	let displayName = name;
 	return (
 		<div
 			className="vertical-container video-container"
