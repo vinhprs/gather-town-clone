@@ -4,6 +4,7 @@ import {
 	BsFillEmojiSmileFill,
 	BsFillMicMuteFill,
 	BsSearch,
+	BsMicFill
 } from "react-icons/bs";
 import { IoIosChatbubbles } from "react-icons/io";
 import { LiaHandPaper } from "react-icons/lia";
@@ -11,6 +12,7 @@ import {
 	MdKeyboardArrowUp,
 	MdModeEditOutline,
 	MdVideocamOff,
+	MdVideocam
 } from "react-icons/md";
 import { PiChalkboardTeacherBold, PiClipboardTextFill } from "react-icons/pi";
 import { RxAvatar } from "react-icons/rx";
@@ -48,25 +50,27 @@ const LayoutInGame = ({ children, ...props }) => {
 							<MdModeEditOutline size={14} color="white" />
 						</div>
 					</div>
-					<div className="control">
-						<BsFillMicMuteFill
-							onClick={() => props?.setOwnAudioEnabled((e) => !e)}
-							size={20}
-							color="#ff3049"
-						/>
-						<div className="arrow">
+					<div style={props.ownAudioEnabled ? {background: `#ff304933`} : {background: `#30ffe733`}} className="control" onClick={() => props?.setOwnAudioEnabled((e) => !e)}>
+
+						{props.ownAudioEnabled ? (
+							<BsFillMicMuteFill size={20} color="#ff3049" />
+						) : (
+							<BsMicFill size={20} color="#85E6C5" />
+						)}
+						{/* <div className="arrow">
 							<MdKeyboardArrowUp size={14} color="#ff3049" />
-						</div>
+						</div> */}
 					</div>
-					<div className="control">
-						<MdVideocamOff
-							onClick={() => props?.setOwnVideoEnabled((e) => !e)}
-							size={30}
-							color="#ff3049"
-						/>
-						<div className="arrow">
+					<div style={props.ownVideoEnabled ? {background: `#ff304933`} : {background: `#30ffe733`}} className="control" onClick={() => props?.setOwnVideoEnabled((e) => !e)}>
+						{!props.ownVideoEnabled ? (
+							<MdVideocam size={24} color="#85E6C5" />
+						) : (
+							<MdVideocamOff size={24} color="#ff3049" />
+						)}
+
+						{/* <div className="arrow">
 							<MdKeyboardArrowUp size={14} color="#ff3049" />
-						</div>
+						</div> */}
 					</div>
 					<div className="action-game">
 						<BsFillEmojiSmileFill size={20} color="#e0e0e0" />
