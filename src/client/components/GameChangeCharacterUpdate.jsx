@@ -17,12 +17,12 @@ export default function GameChangeCharacterUpdate(props) {
     <div className="w-full flex flex-wrap !w-auto !h-auto gap-4 ">
       {ids.map((id) => {
         return (
-          <div key={id} className="h-fit">
+          <div key={id} className="h-auto">
             <img
               src={characterIds[id]}
               onClick={() => setCharacterId(id)}
               className={classNames(
-                "object-cover w-[40px] h-[40px] object-left ring-2",
+                "object-cover !w-[40px] !h-[40px] object-left ring-2",
                 {
                   "not-selected !ring-0": id !== selectedId,
                 }

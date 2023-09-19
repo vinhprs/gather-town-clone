@@ -1,14 +1,19 @@
 .ot-chat-container {
   position: absolute;
-  top: 5;
-  left: -191;
-  width: 175px;
-  height: 391px;
-  border: 1px solid #e7e7e7;
-  border-radius: 10px;
+  z-index: 999;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh !important;
+  padding: 100px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgb(32, 37, 64);
 }
 
 .ot-chat-message-container {
+  flex: 1;
   overflow-y: auto;
   padding: 7px;
 }
@@ -23,6 +28,7 @@
 }
 
 .ot-chat-message {
+  color: white;
   line-height: 18px;
   word-wrap: break-word;
 }

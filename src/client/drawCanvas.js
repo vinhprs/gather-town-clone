@@ -165,6 +165,16 @@ function draw(x, y, map, players) {
   //   "map-name-container-" + player.playerId
   // );
 
+  players.forEach((item) => {
+    playerRefList[item.playerId] = document.getElementById(
+      "map-name-container-" + item.playerId
+    );
+  });
+
+  // let mapNameContainer = document.getElementById(
+  //   "map-name-container-" + player.playerId
+  // );
+
   console.log("players", players);
   players.forEach((player) => {
     const refPlayer = playerRefList[player.playerId];
@@ -192,32 +202,38 @@ function draw(x, y, map, players) {
       ctx.rect(drawX, drawY, objectSizes, objectSizes);
       ctx.stroke();
 
-      // let mapNameContainer = document.getElementById(
-      //   "map-name-container-" + player.playerId
-      // );
-      // console.log("mapNameContainer", mapNameContainer);
-      // let mousedOver =
-      //   mouseCoorX >= drawX &&
-      //   mouseCoorX <= drawX + objectSizes &&
-      //   mouseCoorY >= drawY &&
-      //   mouseCoorY <= drawY + objectSizes;sssssssssssss
+      let mapNameContainer = document.getElementById(
+        "map-name-container-" + player.playerId
+      );
 
-      // if (
-      //   (showNames || mousedOver) &&
-      //   playersNameMap[player.playerId] &&
-      //   mapNameContainer
-      // ) {
-      //   // Draw the name
-      //   mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
-      //   mapNameContainer.style.top = drawY + objectSizes + "px";
-      //   mapNameContainer.style.border =
-      //     "solid 2px " + colors[player.playerId % colors.length];
-      //   mapNameContainer.style.transform = "translateX(-50%)";
-      //   mapNameContainer.textContent = playersNameMap[player.playerId];
-      //   mapNameContainer.hidden = false;
-      // } else if (mapNameContainer) {
-      //   mapNameContainer.hidden = true;
-      // }
+      console.log(
+        "playersNameMap[player.playerId]",
+        playersNameMap[player.playerId]
+      );
+      console.log("mapNameContainer", mapNameContainer);
+      let mousedOver =
+        mouseCoorX >= drawX &&
+        mouseCoorX <= drawX + objectSizes &&
+        mouseCoorY >= drawY &&
+        mouseCoorY <= drawY + objectSizes;
+
+      if (playersNameMap[player.playerId] && mapNameContainer) {
+        // Draw the name
+        mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
+        mapNameContainer.style.top = drawY - objectSizes - 10 + "px";
+        mapNameContainer.style.color = "white";
+        mapNameContainer.style.background = "rgba(0, 0, 0, 0.6)";
+        mapNameContainer.style.padding = "2px 10px";
+        mapNameContainer.style.fontWeight = "bold";
+        mapNameContainer.style.borderRadius = "4px";
+        mapNameContainer.style.border =
+          "solid 2px " + colors[player.playerId % colors.length];
+        mapNameContainer.style.transform = "translateX(-50%)";
+        mapNameContainer.textContent = playersNameMap[player.playerId];
+        mapNameContainer.hidden = false;
+      } else if (mapNameContainer) {
+        mapNameContainer.hidden = true;
+      }
     } else {
       if (!window.selectedIds || window.selectedIds[player.playerId]) {
         var position = offScreenLine(drawX, drawY);
@@ -230,15 +246,6 @@ function draw(x, y, map, players) {
         ctx.closePath();
       }
     }
-    refPlayer.style.left = drawX + objectSizes / 2 + "px";
-    refPlayer.style.top = drawY - 30 + "px";
-    refPlayer.style.background = "rgba(0, 0, 0, 0.6)";
-    refPlayer.style.padding = "2px 10px";
-    refPlayer.style.borderRadius = "6px";
-    refPlayer.style.color = "white";
-    refPlayer.style.fontWeight = "bold";
-    refPlayer.style.transform = "translateX(-50%)";
-    refPlayer.textContent = "username";
   });
 
   let blockedText = document.getElementById("blocked-text");

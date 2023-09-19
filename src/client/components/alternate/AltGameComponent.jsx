@@ -412,7 +412,6 @@ export default function AltGameComponent(props) {
 		videoComponent = (
 			<AltGameVideosContainer
 				myPlayerId={myPlayerId}
-				refVideo={props.refVideo}
 				playerInfoMap={playerInfoMap}
 				playerVideoMap={shallowCloneMap}
 				ownImage={ownImage}

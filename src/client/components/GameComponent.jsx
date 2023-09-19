@@ -136,6 +136,7 @@ export default function GameComponent(props) {
 					let publicId = playerInfoMap[chatPayload.id].publicId;
 					return publicId && !(publicId in val && val[publicId]);
 				});
+				console.log("newChatMessages---", newChatMessages);
 				return newChatMessages;
 			});
 		});
