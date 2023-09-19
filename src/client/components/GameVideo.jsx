@@ -25,7 +25,6 @@ export default function GameVideo(props) {
 	const [showMenu, setShowMenu] = useState(false);
 
 	const { modPasswordCorrect } = useContext(ModContext);
-
 	useEffect(() => {
 		let video = document.getElementById("video-" + props.id);
 		if ("srcObject" in video) {

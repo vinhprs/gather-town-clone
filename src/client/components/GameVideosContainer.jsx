@@ -313,6 +313,7 @@ export default function GameVideosContainer(props) {
 				});
 
 				peer.on("stream", (stream) => {
+					console.log("stream", stream);
 					if (peer._remoteStreams.length === 1) {
 						setStreamMap((prevStreamMap) => {
 							let newStreamMap = Object.assign({}, prevStreamMap);

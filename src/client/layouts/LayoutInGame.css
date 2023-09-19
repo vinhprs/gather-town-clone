@@ -1,7 +1,13 @@
-.flex {
+.v-flex {
   display: flex;
   width: 100%;
   height: 100%;
+}
+
+.top-layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
 }
 
 .justify-center {
