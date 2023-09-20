@@ -1,6 +1,6 @@
 import { colors, PUBLIC_MAP } from "./constants";
 import { clamp, max, getSubDomain } from "./utils";
-import { updateAnim } from "./environmentAnimation";
+import { listenerIdObject, updateAnim } from "./environmentAnimation";
 import { isBlocked } from "../common/utils";
 import {
   imageMap,
@@ -24,7 +24,7 @@ let playersNameMap = {};
 
 var mouseCoorX = 0;
 var mouseCoorY = 0;
-
+var initFunction = false
 var showNames = false;
 
 var directionCoors = [
@@ -46,6 +46,7 @@ export function drawInit() {
     mouseCoorX = e.clientX - canvas.getBoundingClientRect().x;
     mouseCoorY = e.clientY - canvas.getBoundingClientRect().y;
   };
+
 }
 
 //coordinates to draw bar indicating location of player offscreen
@@ -120,7 +121,10 @@ function draw(x, y, map, players) {
   }
 
   ctx.drawImage(terrainImages[map], top_x, top_y, w, h, 0, 0, w, h);
-
+  if (!initFunction) {
+    initFunction = true
+    listenerIdObject(map, top_x, top_y, objectSizes)
+  }
   // ctx.beginPath();
   // ctx.lineWidth = "4";
   // ctx.strokeStyle = "white";
