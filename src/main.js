@@ -307,14 +307,14 @@ server.post('/api/createRoom', (req, res) => {
     res.status(400).send('One of the request parameters is wrong');
     return;
   }
-
+  let data = {};
+  let id = '';
   db.collection("rooms").doc(req.body.name).get()
     .then(doc => {
       if (doc.exists) {
         res.status(409).send('Room with that ID already exists');
         throw new Error('break');
       } else {
-        let data = {};
         data["map"] = req.body.map;
 
         let splitName = req.body.name.split("\\");
@@ -326,25 +326,23 @@ server.post('/api/createRoom', (req, res) => {
         if (req.body.modPassword) {
           data["modPassword"] = bcrypt.hashSync(req.body.modPassword, 10);
         }
-        return db.collection("rooms").doc(req.body.name).set(data);
+        return zoomCall()
+          .then(data => {
+            const zoomUrl = data.data.join_url;
+            id = zoomUrl.split('?')[0].split("/").pop()
+            res.status(201).json({
+              zoomUrl: `https://app.zoom.us/wc/${id}/join`
+            });
+          })
+          .catch(e => console.log(e))
       }
     })
     .then(() => {
-      zoomCall()
-      .then(data => {
-        const zoomUrl = data.data.join_url;
-        const id = zoomUrl.split('?')[0].split("/").pop()
-        res.status(201).json({
-          zoomUrl: `https://app.zoom.us/wc/${id}/join`
-        });
-      })
-      .catch(e => console.log(e))
-      
+      data["zoomUrl"] = `https://app.zoom.us/wc/${id}/join`;
+      return db.collection("rooms").doc(req.body.name).set(data);
     })
-    .catch((err) => {
-      if (err !== "break") console.log(err);
-    });
-});
+    .catch(e => console.log(e))
+})
 
 server.post('/api/publicRoomInfo', (req, res) => {
   let roomFirebase = req.body.room.replace("/", "\\");
