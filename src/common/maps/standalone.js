@@ -2207,7 +2207,7 @@ export var portalDirectionMap = {
 export var audioMap = {
   110: [
     {
-      id: "fireplace",
+      id: "nani",
       path: "/sounds/nani.wav",
       volume: [1.0, 1.0, 0.8, 0.5, 0.2],
       pos: [22, 42],
@@ -2244,6 +2244,7 @@ export var animMap = {
       ),
       pos: [22, 42],
       frameGap: 5,
+      name: 'nani'
     },
   ],
 };

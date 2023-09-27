@@ -1,7 +1,7 @@
 import { audioMap } from '../common/maps';
-
+import toast, { Toaster } from 'react-hot-toast';
 let oldMap;
-
+let currentDist = 0
 function getDistance(myPlayer, posX, posY) {
   let xs = myPlayer.position.x - posX;
   let ys = myPlayer.position.y - posY;
@@ -28,6 +28,11 @@ export function updateSound(myPlayer) {
   if (backgroundAudios) {
     backgroundAudios.forEach(bgAudio => {
       let dist = getDistance(myPlayer, bgAudio.pos[1], bgAudio.pos[0]);
+      if (currentDist !== dist && dist === 1) {
+        currentDist = dist
+      } else {
+        currentDist = dist
+      }
       let audioEl = document.getElementById("audio-" + bgAudio.id);
       if (Math.ceil(dist) < bgAudio.volume.length) {
         if (audioEl) {

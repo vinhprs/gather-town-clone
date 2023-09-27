@@ -49,9 +49,8 @@ server.use(bodyParser.json());
 server.get('/', function (req, res) { res.sendFile(INDEX); });
 server.use('/', express.static(path.join(__dirname, '../dist/')));
 
-server.get('/help', (req, res) => {
-  res.sendFile(INDEX);
-});
+server.get('/help', (req, res) => res.sendFile(INDEX));
+server.get('/zoom/:id', (req, res) => res.sendFile(INDEX));
 server.get('/private', (req, res) => res.sendFile(INDEX));
 server.get('/auth', (req, res) => res.sendFile(INDEX));
 
