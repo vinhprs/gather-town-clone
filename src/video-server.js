@@ -1,7 +1,5 @@
 var WebSocket = require('ws');
 var http = require('http');
-
-
 export default function setupWS() {
   const server = http.createServer();
 

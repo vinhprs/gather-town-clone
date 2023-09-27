@@ -7,14 +7,13 @@ import https from 'https';
 import http from 'http';
 import fs from 'fs';
 import { db, auth } from './server/constants';
-
 import mailgun from 'mailgun-js';
 const DOMAIN = 'BLANK';
 const mg = mailgun({
   apiKey: 'BLANK',
   domain: DOMAIN
 });
-
+import zoomCall from './common/zoom/zoom.api';
 import setupGameServer from './game-server'
 
 const PORT = process.env.PORT || 3000;
@@ -50,7 +49,9 @@ server.use(bodyParser.json());
 server.get('/', function (req, res) { res.sendFile(INDEX); });
 server.use('/', express.static(path.join(__dirname, '../dist/')));
 
-server.get('/help', (req, res) => res.sendFile(INDEX));
+server.get('/help', (req, res) => {
+  res.sendFile(INDEX);
+});
 server.get('/private', (req, res) => res.sendFile(INDEX));
 server.get('/auth', (req, res) => res.sendFile(INDEX));
 
@@ -329,7 +330,16 @@ server.post('/api/createRoom', (req, res) => {
       }
     })
     .then(() => {
-      res.status(201).send('Sucessfully created room');
+      zoomCall()
+      .then(data => {
+        const zoomUrl = data.data.join_url;
+        const id = zoomUrl.split('?')[0].split("/").pop()
+        res.status(201).json({
+          zoomUrl: `https://app.zoom.us/wc/${id}/join`
+        });
+      })
+      .catch(e => console.log(e))
+      
     })
     .catch((err) => {
       if (err !== "break") console.log(err);

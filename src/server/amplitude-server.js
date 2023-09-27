@@ -23,5 +23,6 @@ export function logAmpEvent(userId, eventType, eventProperties, isProd) {
       'Accept':'*/*'
     },
     data
-  }).catch(e => console.log(e))
+  })
+  .catch(e => console.log(e))
 }
