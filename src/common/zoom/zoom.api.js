@@ -7,6 +7,7 @@ export default function zoomCall() {
         "type": 2,
         "start_time": "2021-05-10T12:10:10Z",
         "duration": "3",
+        "password": "123456",
         "settings": {
             "host_video": true,
             "participant_video": true,
