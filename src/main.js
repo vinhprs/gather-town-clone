@@ -66,7 +66,18 @@ server.get('^/:roomNum([a-zA-Z0-9]{8,})/:roomName', (req, res) => {
       }
     });
 });
-
+server.get('/zoom_url/:roomNum([a-zA-Z0-9]{8,})/:roomName', (req, res) => {
+  let roomId = req.params.roomNum + "\\" + req.params.roomName;
+  console.log("got roomId", roomId);
+  db.collection("rooms").doc(roomId).get()
+    .then(doc => {
+      if (doc.exists) {
+        res.json(doc.data());
+      } else {
+        res.status(404).send('No room found of this ID');
+      }
+    });
+})
 /*
 // Not added back in yet
 server.get('^/pub/:roomName', (req, res) => {

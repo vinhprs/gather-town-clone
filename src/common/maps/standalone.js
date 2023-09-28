@@ -2242,7 +2242,7 @@ export var animMap = {
         (_, i) =>
           "/images/maps/shared/fireplace_animation/fireplace" + (i + 1) + ".png"
       ),
-      pos: [22, 42],
+      pos: [22, 41],
       frameGap: 5,
       name: 'nani'
     },

@@ -1,5 +1,9 @@
 import firebase from 'firebase';
-
+import {
+  collection,
+  doc,
+  getDoc,
+} from 'firebase/firestore'
 import { auth, db } from './constants';
 import { localPreferences } from './LocalPreferences';
 import { amplitudeInstance } from './amplitude';
@@ -31,7 +35,7 @@ export function dataOnSignIn() {
             });
         } else {
           let userData = Object.assign(
-            {"analytics": false, "overAge": false, "seenTutorial": false}, localPreferences.get("user"));
+            { "analytics": false, "overAge": false, "seenTutorial": false }, localPreferences.get("user"));
           let blockedData = localPreferences.get("blocked") || {};
           let roomData = localPreferences.get("rooms") || {};
           db.collection("auth-users").doc(auth.currentUser.uid).set({
@@ -71,7 +75,7 @@ export function getUserData() {
     return db.collection("auth-users").doc(auth.currentUser.uid).get();
   } else {
     let userData = Object.assign(
-      {"analytics": false, "overAge": false, "seenTutorial": false}, localPreferences.get("user"));
+      { "analytics": false, "overAge": false, "seenTutorial": false }, localPreferences.get("user"));
     let blockedData = localPreferences.get("blocked") || {};
 
     return Promise.resolve(
@@ -122,6 +126,17 @@ export function getRoomData(roomId) {
   }
 }
 
+
+export const getZoomRoomURL = async (id) => {
+  try {
+    return db.collection("auth-users").doc(auth.currentUser.uid)
+      .collection("rooms").doc(id).get();
+  } catch (error) {
+
+  }
+
+}
+
 // DO NOT use this for lastVisited!
 export function updateRoomData(roomId, data) {
   if (auth.currentUser) {
@@ -146,6 +161,6 @@ export function updateRoomVisit(roomId) {
 
   let roomsData = localPreferences.get("rooms") || {};
   let curRoomData = (roomsData && roomsData[roomId]) || {};
-  roomsData[roomId] = Object.assign(curRoomData, {"lastVisited": curDate});
+  roomsData[roomId] = Object.assign(curRoomData, { "lastVisited": curDate });
   localPreferences.set("rooms", roomsData);
 }

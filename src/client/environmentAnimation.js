@@ -1,5 +1,6 @@
+import axios from "axios";
 import { animMap } from "../common/maps";
-
+import { getRoomFromPath } from "./utils";
 var imagesMap;
 var animCounters;
 let oldMap = null;
@@ -45,7 +46,7 @@ export const listenerIdObject = (map, top_x, top_y, objectSizes) => {
   let isImageClicked = false;
 
   const canvas = document.getElementById('canvas');
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     if (isImageClicked) {
       return; // Return early if an image has already been clicked
     }
@@ -70,8 +71,14 @@ export const listenerIdObject = (map, top_x, top_y, objectSizes) => {
           clickY <= imageY + frameHeight
         ) {
           isImageClicked = true; // Set the flag to true when an image is clicked
-          window.open('http://localhost:3000/zoom/76132305594', '_blank');
-          console.warn('run')
+          // read('rooms', getRoomFromPath())
+          const res = await axios.get(window.location.origin + '/zoom_url/' + getRoomFromPath())
+
+          if (res?.data) {
+            window.open(res?.data?.zoomUrl, '_blank');
+          }
+
+          console.warn(getRoomFromPath())
           canvas.removeEventListener('click', handleClick);
           break; // Break out of the inner loop when an image is clicked
         }
