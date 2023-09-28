@@ -25,11 +25,11 @@ export default function setupGameServer(server, httpServer) {
   server.use(bodyParser.json());
 
   // server stats
-  server.get('/serverInfo', (req, res) => {
-    serverEngine.gameStatus().then(gameStatus => {
-      res.json(gameStatus);
-    });
-  })
+  // server.get('/serverInfo', (req, res) => {
+  //   serverEngine.gameStatus().then(gameStatus => {
+  //     res.json(gameStatus);
+  //   });
+  // })
 
   // moderation tools
   server.post('/checkModPassword', (req, res) => {
