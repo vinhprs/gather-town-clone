@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Peer from "simple-peer";
+require('dotenv').config()
 
 import { amplitudeInstance } from "../amplitude";
 import { getRoomFromPath } from "../utils";
@@ -12,7 +13,7 @@ import GameScreenVideo from "./GameScreenVideo.jsx";
 import "./GameVideosContainer.css";
 
 let DEV_ENDPOINT = `ws://localhost:9009`;
-let PROD_ENDPOINT = `BLANK`;
+let PROD_ENDPOINT = process.env.PROD_ENDPOINT;
 
 let MAX_VIDEOS_DEFAULT = 10000;
 
