@@ -54,6 +54,7 @@ export default function GameCanvas(props) {
   return (
     <div style={{ position: "relative" }} className="game-container">
       {linkContainer}
+
       {/* {props.inGame && (
         <GameChat
           sendChatMessage={props.sendChatMessage}
@@ -64,6 +65,10 @@ export default function GameCanvas(props) {
       )} */}
       {/* <CameraStream /> */}
       <div className="relative w-[1024px] h-[900px] border-2 m-auto">
+        <iframe
+          id="iframe-zoom"
+          className="absolute hidden inset-0 w-[1100px] h-[890px] z-[800] m-0 p-0 -translate-y-[20px]"
+          src=""></iframe>
         <CameraStream />
         {Object.keys(props.playerInfoMap).map((key) => (
           <div
@@ -75,7 +80,11 @@ export default function GameCanvas(props) {
           id="canvas"
           width="1024"
           height="900"
-          style={{ position: "relative", zIndex: 9999, marginTop: "20px" }}></canvas>
+          style={{
+            position: "relative",
+            zIndex: 100,
+            marginTop: "20px",
+          }}></canvas>
       </div>
 
       {props.inGame ? (

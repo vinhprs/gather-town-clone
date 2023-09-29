@@ -1,6 +1,6 @@
 .map-name-container {
   position: absolute;
-  z-index: 999999;
+  z-index: 100;
 }
 
 #blocked-text {

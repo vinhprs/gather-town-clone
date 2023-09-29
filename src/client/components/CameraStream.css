@@ -3,10 +3,10 @@
   height: 50px;
   /* margin: 0 auto; */
   position: absolute;
-  z-index: 999999;
+  z-index: 100;
 }
 
 #player-video {
   position: absolute;
-  z-index: 999999;
+  z-index: 100;
 }

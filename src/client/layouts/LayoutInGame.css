@@ -1,234 +1,234 @@
 .v-flex {
-	display: flex;
-	width: 100%;
-	height: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .top-layout {
-	display: flex;
-	width: 100%;
-	height: 100vh;
+  display: flex;
+  width: 100%;
+  height: 100vh;
 }
 
 .justify-center {
-	justify-content: center;
+  justify-content: center;
 }
 
 .justify-between {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 .gap-4 {
-	gap: 12px;
+  gap: 12px;
 }
 .p-2 {
-	padding: 8px;
+  padding: 8px;
 }
 .fixed {
-	position: fixed;
+  position: fixed;
 }
 
 /* control-container */
 .notification {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 }
 .notification .item {
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 6px;
-	cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
 }
 .notification .item:hover {
-	background: #49538a;
+  background: #49538a;
 }
 .action-game {
-	width: 40px;
-	height: 40px;
-	border-radius: 100rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 6px;
-	background: #333a64;
-	cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 100rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  background: #333a64;
+  cursor: pointer;
 }
 .action-game:hover {
-	background: #49538a;
+  background: #49538a;
 }
 .control {
-	gap: 6px;
-	padding: 10px 8px;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 60px;
-	height: 40px;
-	border-radius: 100rem;
-	/* background: #ff304933; */
-	/* background: #30ffe733; */
+  gap: 6px;
+  padding: 10px 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 40px;
+  border-radius: 100rem;
+  /* background: #ff304933; */
+  /* background: #30ffe733; */
 }
 .control .arrow {
-	border-left: 1px solid rgba(255, 145, 158, 0.623);
-	width: 20px;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  border-left: 1px solid rgba(255, 145, 158, 0.623);
+  width: 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .logo {
-	background: #4358d8;
-	border-radius: 4px;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background: #4358d8;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .user-container {
-	background: #333a64;
-	border-radius: 4px;
-	height: 40px;
-	display: flex;
-	align-items: center;
-	width: 200px;
-	padding: 6px;
-	gap: 4px;
+  background: #333a64;
+  border-radius: 4px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  padding: 6px;
+  gap: 4px;
 }
 .user-container .avatar {
-	width: 50px;
-	height: 100%;
-	padding: 0 10px;
-	gap: 10px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-right: 1px solid rgb(156, 156, 156);
+  width: 50px;
+  height: 100%;
+  padding: 0 10px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid rgb(156, 156, 156);
 }
 .user-container .name {
-	position: relative;
-	background: #333a64;
-	border-radius: 4px;
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	color: white;
-	font-size: 12px;
+  position: relative;
+  background: #333a64;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  font-size: 12px;
 }
 .user-container .edit {
-	background: #333a64;
-	border-radius: 4px;
-	display: flex;
-	justify-content: end;
-	width: 30px;
-	height: 100%;
-	color: white;
-	font-size: 12px;
-	cursor: pointer;
+  background: #333a64;
+  border-radius: 4px;
+  display: flex;
+  justify-content: end;
+  width: 30px;
+  height: 100%;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
 }
 .user-container .name:hover {
-	background: #5a65a5;
+  background: #5a65a5;
 }
 .control-container {
-	z-index: 999;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	width: 100%;
-	height: 60px;
-	gap: 10px;
-	padding: 10px 24px;
-	display: flex;
-	-webkit-box-pack: justify;
-	justify-content: space-between;
-	-webkit-box-align: center;
-	align-items: center;
-	background-color: rgb(32, 37, 64);
-	border-top: 1px solid rgb(70, 75, 104);
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  gap: 10px;
+  padding: 10px 24px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: rgb(32, 37, 64);
+  border-top: 1px solid rgb(70, 75, 104);
 }
 .game-body {
-	width: 100%;
-	flex: 1;
-	height: 100%;
-	position: relative;
-	z-index: 99;
-	left: 0;
+  width: 100%;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  z-index: 99;
+  left: 0;
 }
 
 .main-game-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	left: 0;
-	background: #000;
-	overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  left: 0;
+  background: #000;
+  overflow: hidden;
 }
 
 /* bar-container */
 .input-search:hover {
-	border: 2px solid rgb(123, 129, 165);
-	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+  border: 2px solid rgb(123, 129, 165);
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
 
 .input-search {
-	width: 100%;
-	margin-top: 20px;
-	padding: 10px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	border: 2px solid rgb(89, 92, 110);
-	border-radius: 10px;
-	gap: 4px;
-	transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid rgb(89, 92, 110);
+  border-radius: 10px;
+  gap: 4px;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
 .input-search input {
-	flex: 1;
-	width: 100%;
-	padding: 0px 10px;
-	background: transparent;
-	outline: none;
-	border: none;
-	color: aliceblue;
-	font-weight: 500;
-	font-size: 1rem;
+  flex: 1;
+  width: 100%;
+  padding: 0px 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: aliceblue;
+  font-weight: 500;
+  font-size: 1rem;
 }
 .bar-container h1 {
-	font-size: 1.2rem;
-	color: aliceblue;
-	font-weight: 600;
+  font-size: 1.2rem;
+  color: aliceblue;
+  font-weight: 600;
 }
 .bar-container {
-	z-index: 999;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 300px;
-	height: 100%;
-	padding: 10px 24px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	background-color: rgb(32, 37, 64);
-	border-top: 1px solid rgb(70, 75, 104);
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  padding: 10px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgb(32, 37, 64);
+  border-top: 1px solid rgb(70, 75, 104);
 }
 .toast {
-	left: 0;
-	padding-right: 400px;
-	align-items: center;
-	display: flex;
-	justify-content: center;
+  left: 0;
+  padding-right: 400px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 .toast > div {
-	position: relative !important;
+  position: relative !important;
 }

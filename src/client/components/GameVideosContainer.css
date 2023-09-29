@@ -1,33 +1,33 @@
 .videos-container {
-	width: 625px;
-	display: flex;
-	margin-top: 20px;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 20px;
+  width: 625px;
+  display: flex;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .videos-max-connections {
-	width: 625px;
-	display: flex;
-	margin-top: 40px;
-	flex-wrap: wrap;
+  width: 625px;
+  display: flex;
+  margin-top: 40px;
+  flex-wrap: wrap;
 }
 #zoom {
-	position: absolute;
-	z-index: 9999;
-	border: 1px solid #c4c4c486;
-	height: 40px;
-	top: 20px;
-	width: 40px;
-	right: 350px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 6px;
-	background: #333a6491;
+  position: absolute;
+  z-index: 999;
+  border: 1px solid #c4c4c486;
+  height: 40px;
+  top: 20px;
+  width: 40px;
+  right: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: #333a6491;
 }
 #zoom:hover {
-	cursor: pointer;
-	background: #525a88;
+  cursor: pointer;
+  background: #525a88;
 }
