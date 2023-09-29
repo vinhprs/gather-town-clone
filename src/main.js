@@ -131,9 +131,9 @@ server.post('/api/getGameServer', (req, res) => {
       // Doing it after so this call isn't blocked on updating the counts
       Object.keys(GAME_SERVERS).forEach(gameServer => {
         let urlSplit = gameServer.split(":");
-        // axios.get("https:" + urlSplit[1] + "/serverInfo").then(jsonData => {
-        //   GAME_SERVERS[gameServer] = JSON.parse(jsonData)["numPlayers"];
-        // })
+        axios.get("https:" + urlSplit[1] + "/serverInfo").then(jsonData => {
+          GAME_SERVERS[gameServer] = JSON.parse(jsonData)["numPlayers"];
+        })
       })
     }
   }).catch((err) => {
