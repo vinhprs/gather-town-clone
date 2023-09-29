@@ -339,16 +339,17 @@ server.post('/api/createRoom', (req, res) => {
         return zoomCall()
           .then(data => {
             const zoomUrl = data.data.join_url;
+            const pwd = data.data.encrypted_password;
             id = zoomUrl.split('?')[0].split("/").pop()
             res.status(201).json({
-              zoomUrl: `https://app.zoom.us/wc/${id}/join`
+              zoomUrl: `https://app.zoom.us/wc/${id}/join?pwd=${pwd}`
             });
           })
           .catch(e => console.log(e))
       }
     })
     .then(() => {
-      data["zoomUrl"] = `https://app.zoom.us/wc/${id}/join`;
+      data["zoomUrl"] = `https://app.zoom.us/wc/${id}/join?pwd=${pwd}`;
       return db.collection("rooms").doc(req.body.name).set(data);
     })
     .catch(e => console.log(e))
