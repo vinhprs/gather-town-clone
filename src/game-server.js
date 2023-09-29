@@ -14,7 +14,7 @@ import setupWS from './video-server';
 export default function setupGameServer(server, httpServer) {
   // Game Instances
   let io = socketIO(httpServer);
-  setupWS(httpServer)
+  setupWS()
   const gameEngine = new Game({ traceLevel: Lib.Trace.TRACE_NONE });
   const serverEngine = new TownServerEngine(io, gameEngine, { debug: {}, updateRate: 6, timeoutInterval: 0 });
 
@@ -85,6 +85,10 @@ export default function setupGameServer(server, httpServer) {
 // Meant to run on the prod servers
 if (require.main === module) {
   const PORT = process.env.port || 4000;
+  let credentials = {
+    cert: fs.readFileSync('BLANK'),
+    key: fs.readFileSync('BLANK'),
+  };
 
   console.log("Running prod https server");
   const server = express();
