@@ -389,6 +389,6 @@ if (process.env.PROD === "true") {
 } else {
   // run http server and game server
   console.log("Running dev http and game server");
-  let requestHandler = server.listen(PORT, () => console.log(`Listening on ${PORT}`));
-  setupGameServer(server, requestHandler);
+  let httpsServer = http.createServer(credentials, server);
+  httpsServer.listen(PORT);
 }
