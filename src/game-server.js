@@ -14,7 +14,7 @@ import setupWS from './video-server';
 export default function setupGameServer(server, httpServer) {
   // Game Instances
   let io = socketIO(httpServer);
-  setupWS()
+  setupWS(server)
   const gameEngine = new Game({ traceLevel: Lib.Trace.TRACE_NONE });
   const serverEngine = new TownServerEngine(io, gameEngine, { debug: {}, updateRate: 6, timeoutInterval: 0 });
 
