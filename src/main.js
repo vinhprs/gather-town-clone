@@ -29,7 +29,7 @@ if (process.env.STAGING === "true") {
   }
 } else {
   GAME_SERVERS = {
-    "BLANK": 0,
+    "https://gather-town-e916e7f7f08c.herokuapp.com": 0,
     "BLANK": 0,
     "BLANK": 0,
     "BLANK": 0,
@@ -95,7 +95,6 @@ server.get('^/pub/:roomName', (req, res) => {
 */
 
 server.post('/api/getGameServer', (req, res) => {
-  console.log("getGameServer")
   if (!req.body.room) {
     res.status(400).send("one of the request parameters is wrong");
     return;
@@ -105,10 +104,12 @@ server.post('/api/getGameServer', (req, res) => {
   db.collection("rooms").doc(roomFirebase).get().then((doc) => {
     if (!doc.exists) throw Exception;
     if (doc.data()["serverURL"]) {
+      console.log("vao day 1")
       res.status(200).send(doc.data()["serverURL"]);
     } else {
       let server;
       let curNum = -1;
+      console.log("vao day 2")
       Object.keys(GAME_SERVERS).forEach(gameServer => {
         if (curNum === -1) {
           server = gameServer;
