@@ -7,7 +7,6 @@ export default function zoomCall() {
         "type": 2,
         "start_time": "2021-05-10T12:10:10Z",
         "duration": "3",
-        "password": "123456",
         "settings": {
             "host_video": true,
             "participant_video": true,
@@ -15,7 +14,8 @@ export default function zoomCall() {
             "mute_upon_entry": "true",
             "watermark": "true",
             "audio": "voip",
-            "auto_recording": "cloud"
+            "auto_recording": "cloud",
+            "approval_type": 0
         }
     }
     return axios({
