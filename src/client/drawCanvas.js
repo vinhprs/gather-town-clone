@@ -1,14 +1,13 @@
-import { colors, PUBLIC_MAP } from "./constants";
-import { clamp, max, getSubDomain } from "./utils";
-import { listenerIdObject, updateAnim } from "./environmentAnimation";
-import { isBlocked } from "../common/utils";
 import {
-  imageMap,
-  imageDimensionsMap,
-  collisionMap,
   characterMap,
+  collisionMap,
+  imageDimensionsMap,
+  imageMap,
 } from "../common/maps";
-import { characterIds } from "./constants";
+import { isBlocked } from "../common/utils";
+import { PUBLIC_MAP, characterIds, colors } from "./constants";
+import { listenerIdObject, updateAnim } from "./environmentAnimation";
+import { clamp, getSubDomain, max } from "./utils";
 
 export var objectSizes = 20;
 
@@ -202,11 +201,6 @@ function draw(x, y, map, players) {
         objectSizes,
         objectSizes
       );
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = colors[player.playerId % colors.length];
-      ctx.rect(drawX, drawY, objectSizes, objectSizes);
-      ctx.stroke();
 
       let mapNameContainer = document.getElementById(
         "map-name-container-" + player.playerId
@@ -226,14 +220,12 @@ function draw(x, y, map, players) {
       if (playersNameMap[player.playerId] && mapNameContainer) {
         // Draw the name
         mapNameContainer.style.left = drawX + objectSizes / 2 + "px";
-        mapNameContainer.style.top = drawY - objectSizes - 10 + "px";
+        mapNameContainer.style.top = drawY - objectSizes + "px";
         mapNameContainer.style.color = "white";
         mapNameContainer.style.background = "rgba(0, 0, 0, 0.6)";
         mapNameContainer.style.padding = "2px 10px";
         mapNameContainer.style.fontWeight = "bold";
         mapNameContainer.style.borderRadius = "4px";
-        mapNameContainer.style.border =
-          "solid 2px " + colors[player.playerId % colors.length];
         mapNameContainer.style.transform = "translateX(-50%)";
         mapNameContainer.textContent = playersNameMap[player.playerId];
         mapNameContainer.hidden = false;
